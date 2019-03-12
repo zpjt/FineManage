@@ -1,0 +1,21 @@
+.editView_main{
+
+	.table{
+		width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+	}
+
+
+	.table-bordered{
+		border: 1px solid #ddd;
+	}
+
+	td,th{
+			border: 1px solid #ddd;
+			padding: 8px;
+      line-height: 1.42857143;
+      vertical-align: top;
+	}
+}
+

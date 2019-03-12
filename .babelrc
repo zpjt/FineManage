@@ -1,0 +1,22 @@
+{
+	"presets": [
+		["env",
+			{
+				"targets": {
+	        		 "chrome": "50",
+	        		 "firefox": "50",
+	     		 }
+			}
+		],
+		"stage-0",
+		],
+	"plugins":[
+		["transform-runtime",{
+			"helpers": false,
+		    "polyfill": false,
+		    "regenerator": true,
+		    "moduleName": "babel-runtime"
+		}]
+	],
+	
+}

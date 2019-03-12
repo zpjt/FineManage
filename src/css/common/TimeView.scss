@@ -1,0 +1,176 @@
+@keyframes real-down{
+	to{
+		transform: translateY(0%);
+	}
+}
+@keyframes real-up{
+	to{
+		transform: translateY(-50%);
+	}
+}
+.timeReal-box{
+	height: 100%;
+	overflow: auto;
+	display: flex;
+	flex-wrap: wrap;
+	box-sizing: border-box;
+	color:#85F4FB;
+	//justify-content: space-between;
+	
+	.real-down{
+		transform: translateY(-50%);
+		animation: real-down .5s ease forwards;
+	}
+	.real-up{
+		animation: real-up .5s ease forwards;
+	}
+
+	.data-split{
+		position: relative;
+		width: 10px;
+		&:after{
+			content:",";
+			position: absolute;
+			bottom: -5px;
+		}
+	}
+
+	
+	.real-zb-icon{
+		position: relative;
+		font-size: 0;
+		padding-right: 6px;
+		&:after{
+			content:"";
+			display: inline-block;
+			width: 6px;
+			height: 12px;
+			background: #85F4FB;
+			transform: skew(-30deg);
+			margin-left: 4px;
+		}
+		&:before{
+			content:"";
+			display: inline-block;
+			width: 6px;
+			height: 12px;
+			background: #85F4FB;
+			
+			transform: skew(-30deg);
+		}
+		
+	}
+
+	
+	
+	@at-root{
+		.timeStyle2{
+			height: 4.5em;
+			background: #4490c175 ;
+			border-radius:4px;
+			margin-top: 6px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding:0 12px;
+			box-sizing: border-box;
+			.real-zb{
+				text-align: left;
+				letter-spacing: .2em;
+				font-size: 14px;
+				width: 160px;
+			}
+			.reak-dataBox{
+				font-size: 26px;
+				display: flex;
+			  justify-content:center;
+				.item-data{
+					position: relative;
+					text-align: center;
+					padding:4px 6px;
+					margin: 0 4px;
+					background:#4490c1;
+					width: 14px;
+			    height: 28px;
+			    border-radius:4px;
+			    line-height: 28px;
+				  overflow: hidden;
+				}
+			}
+			
+		}
+
+		.timeStyle1{
+			$color:#2BC3BE;
+			height: 9.5em;
+		//	margin:auto;
+			//border:1px solid ;
+			.real-zb{
+				text-align: right;
+				padding: 8px 4px;
+				letter-spacing: .1em;
+				font-size: 14px;
+				height: 40px;
+
+			}
+			.reak-dataBox{
+				font-size: 30px;
+				display: flex;
+			  justify-content: flex-end;
+			  border-bottom: 2px solid $color;
+			  position: relative;
+			  padding: 8px 0;
+			  &:after{
+			  	content:"";
+			  	position: absolute;
+			  	bottom:-4px;
+			  	width: 6px;
+			  	height: 6px;
+			  	border-radius: 100%;
+			  	background: $color;
+
+			  }
+				.item-data{
+					position: relative;
+					padding:4px 4px;
+					width: 18px;
+			    height: 35px;
+			    line-height: 35px;
+			    overflow: hidden;
+				}
+			}
+			
+		}
+	/* 	.timeStyle1{
+		margin:auto;
+		height: 3em;
+		background: url("../../img/timeReal_line.png") center no-repeat;
+		background-size:contain;
+		display: flex;
+		align-items: center;
+		.real-zb{
+			text-align: left;
+			padding-left: 20px;
+			letter-spacing: .2em;
+			width: 50%;
+		}
+		.reak-dataBox{
+			width: 50%;
+			font-size: 20px;
+			padding:4px 18px;
+		  	display: flex;
+			 justify-content: center;
+			.item-data{
+				padding:4px 8px;
+				background:  url("../../img/timeReal_rect.png") center no-repeat;
+				width: 14px;
+			    height: 24px;
+			    margin:0 4px;
+			    line-height: 24px;
+			    background-size:cover;
+			    overflow: hidden;
+			}
+		}
+	} */
+	}
+}

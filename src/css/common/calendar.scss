@@ -1,0 +1,280 @@
+$themeColor:#00a0e9;
+$sel:#FF6666;
+$slectColor:#aee6ff;
+.dataTime{
+	min-height:280px;
+	min-width: 360px;
+    z-index:20;
+	background: white;
+	border-radius:8px;
+	border:1px solid $themeColor;
+	position: absolute;
+	display:none;
+	top:44px;
+	left:0;
+	box-shadow: 4px 4px 22px 0px rgba(0, 0, 0, 0.46);
+}
+.s-calendar-title{
+	display:flex;
+	justify-content:space-between;
+	padding:4px 8px;
+	background: $themeColor;
+	align-items:center;
+	border-radius: 6px 6px 0 0 ;
+	@at-root{
+		.frequemcy-box{
+				$w:54px;
+				display:block;
+				position: relative;
+				cursor: pointer;
+				z-index: 3;
+				.frequemcy-sel{
+					width:$w;
+					color:$themeColor;
+					background: #fff ;
+				}
+				.calendar-frequemcy{
+					position: absolute;
+					border-radius:5px ;
+					background:white;
+					box-shadow: 2px 3px 18px 0px rgba(0, 0, 0, 0.26);
+					width:$w;
+					top:30px;
+					color:$themeColor;
+					display:none;
+					&>li{
+						text-align:center;
+						padding:4px 0;
+						border-bottom:1px solid $themeColor;
+					}
+					li:last-child{
+						border:none;
+					}
+					.frequemcy-active{
+						background: $themeColor;
+						color:white;
+					}
+				}
+			}
+	}
+
+	.calendar-opt:first-child{
+		background: white;
+	}	
+
+	.calendar-opt{
+		color: $themeColor;
+		&:hover{
+			color: white;
+			background: #0080bb;
+		}
+	}
+	
+	.showSel-box{
+		color:white;
+		font:{
+			weight:bolder;
+		}
+	}
+	.sel-time-inp{
+			background: #0080bb;
+			width: 174px;
+			display: inline-block;
+			height: 28px;
+			text-align: center;
+			border-radius: 28px;
+			line-height: 28px;
+		}
+	.sure-btn{
+		color:$themeColor;
+		background:white;
+	}
+}
+.calendar-container{
+	display:flex;
+	.calendar-view{
+		width:100%;
+		min-width:240px;
+		//padding:0 10px;	
+		position: relative;
+	}
+	.s-calendar-content{
+		padding:4px 0 8px 0;
+	}
+
+}
+.has-watchTime{
+	padding-bottom:28px;
+}
+.calendar-control{
+	.s-btn{
+	  color:$themeColor;
+	  background: none;
+	}
+}
+.calendar-item{
+	display:none;
+	color:$themeColor;
+	cursor: pointer;
+	.m-time{
+		color:black;
+		display:flex;
+		position: absolute;
+		bottom:8px;
+		justify-content: center;
+		width: 100%;	
+		.wacth-time{
+			width:64px;
+			height:24px;
+			border:1px solid $themeColor;
+			border-radius:4px;
+			text-align:center;
+		}
+	}
+
+	.view-item{
+		text-align:center;
+		span{
+			display:inline-block;
+			border-radius:50%;
+		}
+		.day-span{
+			width: 35px;
+			height: 35px;
+			line-height:35px;
+		}
+		.mon-span,.year-span{
+			width: 60px;
+			height: 60px;
+			line-height:60px;
+		}
+		.sea-span{
+			width: 80px;
+			height: 80px;
+			line-height:80px;
+		}
+	}
+	.day-disabled{
+		color:grey;
+		cursor: not-allowed;
+		text-align:center;
+		span{
+			display:inline-block;
+			width: 35px;
+			height: 35px;
+			line-height:35px;
+		}
+	}
+	@at-root{
+		.week-group{
+			display:flex;
+			color:black;
+			font:{
+				weight:bolder;
+			}
+			&>li{
+				width:14.28% ;
+				text-align:center;
+				padding:8px 0;
+			}
+		}
+		
+		.data-group{
+			display:flex;
+			&>li{
+				width:14.28% ;
+			}
+			.view-item{
+				cursor: pointer;
+				&:hover{
+					span{
+						background:$themeColor;
+						color:white;
+					}
+				
+				}
+			}
+			
+		}
+		.year-group , .mon-group{
+			display:flex;
+			.view-item{	
+				width:33.3%;
+				&:hover{
+					span{
+						background:$themeColor;
+						color:white;
+					}
+				}
+			}
+		}
+		.mon-grop{
+			.calendar-sel{
+				border-radius:20%;
+			}
+		}
+		
+		.searson-group{
+			display:flex;
+			.view-item{	
+				width:50%;
+				text-align:center;
+				&:hover{
+					span{
+						background:$themeColor;
+						color:white;
+					}
+					
+				}
+			}
+		}
+	}
+	
+	.last-year{
+		width:33.3%;
+		margin:auto;
+		text-align:center;
+	}
+	.calendar-today{
+		span{
+			color:$sel;
+			font:{
+				weight:bolder;
+			}
+		}
+	}
+	
+	.calendar-sel{
+		span{
+			background: $sel;
+			color:white;
+		}
+	}
+	
+}
+.calendar-item.calendar-active{
+	display:block;
+}
+	
+.s-calendar-time{
+	height:30px;
+	border-bottom:1px solid $themeColor;
+	display:flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 10px;
+	.time-box{
+		cursor: pointer;
+		.timeType{
+			&:hover{
+				color:$themeColor;
+			}
+			
+		}
+	}
+}
+
+
+
+
+

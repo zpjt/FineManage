@@ -1,0 +1,431 @@
+$themeColor:#00a0e9;
+$inpBg:white;
+$height:40px;
+$default:#ececec;
+$width:200px;
+$slectColor:#aee6ff;
+$border:#E4E4E4;
+$borderWidth:1px;
+
+/* 输入框 */
+.s-inp{
+	height: 100%;
+//	min-width:$width;
+	text-indent:1em;
+	border:0;
+	outline:0;
+	transition: border-color .4s ease-out ;
+	font:{
+		weight:bolder;
+	};
+	box-sizing:border-box;
+}
+.inp-tip{
+  color:red;
+}
+
+.no-fill.s-inp{
+ 	border:$borderWidth solid red;
+}
+
+ .normal-inp{
+	 border-radius: 4px;
+	 border: solid $borderWidth #e3e3e3;
+}
+   
+.s-inp-box{
+	height:$height;
+	position: relative;
+	box-sizing:border-box;
+	&:hover{
+	  .normal-inp{
+	  	border-color:$themeColor;
+	  }
+	}
+
+  
+   
+}
+
+
+
+
+
+.s-inpBox{
+	position: relative;
+	padding:15px 0;
+	.inp-Yoshiko{
+		padding:4px 8px;
+		width: $width;	
+		box-sizing:content-box;
+		background:$inpBg;
+		border-radius:4px;
+	}
+	.s-inp{
+		border:1px solid red;
+	}
+	.lab-Yoshiko{
+		color:$default;
+		position: absolute;
+		left:10px;
+		top:26px;
+		transition: all  .3s ease;
+		font:{
+			weight:bolder;
+		}
+	}
+	.inp-tip{
+		opacity:0;
+	}
+}
+
+.inp-fill{
+	.inp-tip{
+		opacity:1;
+	}
+	.lab-Yoshiko{
+		top:-5px;
+		color:$themeColor;
+	}
+	
+	.combo-box{
+		display:block;
+	}
+	.s-inp{
+		border:none;
+	}
+
+}
+
+
+/* 滑块1 */
+.s-switch{
+	$active:#329043;
+	$off: #666;
+	$h:32px;
+	position: relative;
+	display:inline-block;
+	width:80px;
+	height:$h;
+	line-height:$h;
+	&:after{
+		content: attr(echo-text);
+		position: absolute;
+	    color:$off;
+	    right: 8px;
+	}
+	label{
+		box-sizing:border-box;
+		background: none;
+		position: absolute;
+		border:3px solid $off;
+		top:0;
+		left:0;
+		width:100%;
+	    height:100%;
+		border-radius:$h;
+		transition:.4s;
+		&:before{
+			$before-h:$h*2/3;
+			content: attr(echo-text);
+			position: absolute;
+			height:$before-h;
+			line-height:$before-h;
+			width:40%;
+			background:$off;
+			top:2px;
+			left:auto;
+			right: 4px;
+			border-radius:$before-h;
+			z-index:2;
+			text-align:center;
+			text-indent:100px;
+			overflow:hidden;
+			margin-right:50%;
+			transition: all 0.4s 0.2s, width 0.2s linear,text-indent 0.4s linear;
+		}
+	}
+	input{
+		position: absolute;
+	    left: 0;
+	    top: 0;
+	    width: 100%;
+	    height: 100%;
+	    z-index: 5;
+	    opacity: 0;
+	    cursor: pointer;
+	}
+	input:checked + label{
+		border:3px solid $active;
+		&:before{
+			text-indent:0;
+			color:white;
+			width: calc(100% - 8px);
+			background: $active;
+			margin-right:0;
+			transition: all 0.4s, width 0.2s linear 0.4s, text-indent 0.3s linear 0.4s;
+		}
+	}
+}
+
+/* 滑块2 */
+.s-switch-2{
+	$radisu:22px;
+	position: relative;
+	cursor: pointer;
+	height: 30px;
+	input{
+		display:none;
+	}
+	.switch-ball{
+		position: relative;
+		display:inline-block;
+		width: 60px;
+		height: 30px;
+		background: #C0CCDA ;
+		border-radius:30px;
+		transition: background .3s ease-in-out;
+		&:before {
+			content:"";
+			position: absolute;
+			width: $radisu;
+			height: $radisu;
+			border-radius:100%;
+			background: #fff ;
+			top:4px;
+			right:8px;
+			transition: right .3s ease-in-out;
+		}
+	}
+
+	input:checked + .switch-ball{
+		background: #13CE66 ;
+		&:before{
+			right:54%;	
+		}
+	}
+	
+}
+
+/* 动画checkbox */
+.s-checkbox{
+	position: relative;
+	display:inline-block;
+	width:20px;
+	input{
+		position: absolute;
+		opacity:0;
+		z-index:10;
+		width: 100%;
+		height:100%;
+		cursor: pointer;
+	}
+	label{
+		font-size:18px;
+		color:$themeColor;
+		&:after{
+			content:"\f14a";
+			position: absolute;
+			transform:translateX(-100%) scale(0);
+			transition: transform .3s ease;
+		}
+		&:before{
+			transition: opacity .3s ease;
+		}
+	}
+	label.has-chec{
+		&:before{
+			content:"\f192";
+		}
+	}
+
+	input:checked+label{
+		&:after{
+			opacity:1;
+			transform:translateX(-100%) scale(1);
+		}
+		&:before{
+			opacity:0;
+		}
+		
+	}
+}
+
+/* 动画radio */
+.s-radio-box{
+	display: inline-flex;
+    align-items: center;
+	 margin-right: 10px;
+	.s-radio{
+		appearance:none;
+		border: 2px solid #4caf50;
+		width: 20px;
+		height: 20px;
+		border-radius:50%;
+		position: relative;
+	    cursor: pointer;
+	    display: inline-block;
+	    margin-right: 8px;
+	    outline: none;
+	    &:after{
+	    	content: "";
+		    display: block;
+		    width: 10px;
+		    height: 10px;
+		    border-radius: 50%;
+		    transform:  scale(0) ;
+		    margin:3px;
+		    transition: all ease-out 250ms;
+	    }
+	    &:checked:after{
+	    	transform: scale(1);
+	    	background: #4caf50;
+	    }
+	}
+
+}
+
+
+/* 下拉框 */
+.s-comboBox{
+	$height:40px;
+	position: relative;
+	cursor: pointer;
+	&:hover{
+		.combo-inp{
+			border-color: $themeColor;
+
+		}
+	}
+	.combo-inp{
+		border-radius:4px;
+		box-sizing:border-box;
+		border: solid $borderWidth #ececec;
+		height:$height;
+		line-height:$height - 4px;
+		.combo-text{
+			width: calc(100% - 30px);
+			text-indent:1em;
+		//	pointer-events:none;
+			cursor: pointer;
+		}
+		/* 文本框 */
+		.s-textarea{
+		  padding-top:10px;
+		  box-sizing:border-box;
+		  height: 100%;
+		  resize: none;
+		  vertical-align: middle;
+		  border:none;
+		  background: none;
+		  outline:none;
+		}
+		.slide-icon{
+			color:#a8afbd;
+			padding:0 4px;
+			transition: transform .3s linear;
+		}
+		
+	}
+	.combo-inp.no-fill{
+		border-color: red;	
+	}
+	.combo-drop{
+		width:100%;
+		top:$height + 4;
+		position: absolute;
+	//	visibility:hidden;
+	//	opacity:0;
+		display:none;
+		background:$inpBg;
+		border:1px solid $default;
+		box-shadow: 2px 3px 18px 0px rgba(0, 0, 0, 0.16);
+		border-radius:4px ;
+		padding:8px;
+		box-sizing:border-box;
+		z-index:2;
+		transform:translateY(-80%);
+	//	transition: all  .3s cubic-bezier(.31,1.47,.81,1.47);
+		.drop-ul{
+			max-height:280px;
+			overflow:auto;
+		}
+		.drop-item {
+			padding:4px 8px;
+		}
+		.drop-item.active {
+			background-color: #aee6ff;
+			border-radius: 2px;
+		}
+		@at-root{
+			.tree-search{
+				width:100%;
+				height:32px;
+				display:flex;
+				label{
+					position: relative;
+					border:1px solid $themeColor;
+					border-bottom:none;
+					flex:auto;
+				}
+				.s-inp{
+					width: 100%;
+				}
+				.search-close{
+					position: absolute;
+					display:none;
+					right:8px;
+					top:4px;
+					font-size:18px;
+					cursor: pointer;
+				}
+				.s-btn{
+					background: $themeColor;
+					font-size:18px;
+					border-radius:0 4px 4px 0;
+				}
+			}
+		}
+		
+	}
+}
+.s-comboBox.active{
+	.slide-icon{
+		transform: rotate(-180deg);
+	}
+	.combo-drop{
+		visibility:visible;
+		opacity:1;
+		transform:translateY(0);
+	}
+}
+
+div.u-drop-up{
+	.combo-drop{
+		top:0;
+	}
+}
+.u-drop-up.active{
+	.combo-drop{
+		transform:translateY(-100%);
+	}
+}
+
+
+
+
+/* 数字验证框 */
+input.num-valid{
+	border:1px solid $border;
+	width:80px;
+	border-radius:4px;
+    height: 30px;
+}
+/* 普通下拉框 */
+.m-select{
+   border-radius: 4px;
+   border:1px solid $border;
+   padding: 0 4px;
+   color:$themeColor;
+   height: 30px;
+}
