@@ -161,7 +161,7 @@ module.exports=function(env,argv){
 		       // clientLogLevel: "none", // cancel console client log
 		        port: '8094', //设置端口号
 		        proxy: {
-		             '/ManageViews': {
+		             '/finemanage': {
 		              //  target: 'http://172.16.13.139:8080',
 		                target: 'http://localhost:8080',
 		                secure: false,

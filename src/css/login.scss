@@ -4,7 +4,7 @@
 	display:flex;
 	justify-content: center;
 	height:100%;
-	background: #fff ;
+	background: #EFDBC8 ;
 	//background: var(--color-item-bg) ;
 	padding:2rem;
 	box-sizing:border-box;
@@ -15,39 +15,54 @@
 }
 .g-content{
 	position: relative;
-	width:50%;
+	width:60%;
 	display:flex;
     flex-direction:column;
     justify-content: center;
     align-items:center;
    
     @at-root{
-    	$w:64%;
+    	$w:90%;
     	 .g-login{
-    	 	width:$w;
-			$color:#45445B;
-			.g-logo{
-				position: absolute;
-				top:100px;
-			}
-			header{
-				text-align:center;
-				.m-title{
-					padding-bottom:1rem;
-					font:{
-						size:28px;
-						weight:bold;
+    	 		display: flex;
+	    	 	width:$w;
+	    	 	background:white;
+				  $color:#45445B;
+					.g-logo{
+						position: absolute;
+						top:100px;
 					}
-					color:#54536C;
-					letter-spacing:.6rem;
+					&:first-child{
+
+					}
+					.g-login-bg{
+						width: 60%;
+						background: url(../img/resources.png) center center no-repeat;
+	   				background-size: cover;
+
+					}
+					.g-login-bg + div{
+						width: 40%;
+						padding: 40px;
+					}
+				header{
+					text-align:center;
+					.m-title{
+						padding-bottom:1rem;
+						font:{
+							size:28px;
+							weight:bold;
+						}
+						color:#54536C;
+						letter-spacing:.6rem;
+					}
+					.m-sub-title{
+						color:#B5B6BB;
+						font:{
+							size:16px;
+						}
+					}	
 				}
-				.m-sub-title{
-					color:#B5B6BB;
-					font:{
-						size:16px;
-					}
-				}	
-			}
 
 			.g-inpBox{
 				svg:not(:root) {
@@ -200,20 +215,6 @@
 	width:200px;
 	height:200px;
 	
-}
-
-$screemMap:(
-	screen-bg1:1,
-	screen-bg2:2,
-	screen-bg3:3,
-	screen-bg4:4
-);
-
-@each $key,$value in $screemMap {
-
- .#{$key}{
- 	background-image: url(../img/screen-bg#{$value}.png);
- }
 }
 
 @keyframes reveal {

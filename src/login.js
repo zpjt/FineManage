@@ -73,16 +73,16 @@ class Login{
     }
 
     getvalue(){
-        const user_name = this.user.val().trim();
-        let password = this.pwd.val().trim();
-        const originPwd = password;
+        const name = this.user.val().trim();
+        let pwd = this.pwd.val().trim();
+        const originPwd = pwd;
     
     
-        password=hex_md5(hex_md5(password));
+        pwd=hex_md5(hex_md5(pwd));
 
         return {
-            user_name,
-            password,
+            name,
+            pwd,
             originPwd,
         }
     }
@@ -127,11 +127,11 @@ class Login{
                 }
 
                  anime({
-                              targets: '#warnContent',
-                              translateX:"-100%",
-                              duration: 1000,
-                              easing: [.91,-0.54,.29,1.56]
-                            });
+                        targets: '#warnContent',
+                        translateX:"-100%",
+                        duration: 1000,
+                        easing: [.91,-0.54,.29,1.56]
+                  });
 
                 return data ;
             });
@@ -141,10 +141,11 @@ class Login{
                 const data = res[1];
                 if(data.url ==="/index") {
 
-                     _self.remindSet(originPwd,obj.user_name);
+                     _self.remindSet(originPwd,obj.name);
                   
                      if(window.jsp_config.resourse){
-                         window.location.href= baseUrl+data.url; 
+                         window.location.href= window.jsp_config.resourse + data.url;
+                         consoel.log(window.jsp_config.resourse+data.url); 
                      }else{
                         window.location.href= data.url; 
                      }

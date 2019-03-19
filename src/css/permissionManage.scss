@@ -2,44 +2,84 @@
 
 $themeColor:#00a0e9;
 
-/* 添加模态框 */
- #addModal{
- 	 width:700px;
-	 .calendar-inpTxt{
-	 	width:420px;
-	 }
 
-	 .m-action {
-	    position: relative;
-		&>.sel-item{
-			margin:8px 0;
+.page{
+	display: flex;
+	height: 100%;
+	box-sizing: border-box;
+	justify-content: space-between;
+	
+	.content-item{
+		height: 100%;
+		background: white;
+		padding: 20px;
+		box-sizing: border-box;
+	}
+}
+.input-box{
+	border: 1px solid $themeColor;
+}
+.tab-opt{
+	cursor: pointer;
+}
+.search-wrap .search-icon{
+	top:-3px;
+	left: 2px;
+}
+#userBox{
+	width: 28%;
+		@at-root{
+			#userList{
+				overflow: auto;
+				height: calc(100% - 40px);
+				margin-top:16px;
+			}
+			.user-item{
+				padding:6px 8px;
+				cursor: pointer;
+				&:hover{
+					background: #d9f2f4;
+				}
+				
+			 }
+			 .user-item.active{
+					color:$themeColor;
+			 }
+			 .search-normal-box{
+			 		height: 30px;
+			 		vertical-align: middle;
+			 		display: flex;
+			 		position: relative;
+			 		.normal-inp{
+			 			flex: auto;
+			 		}
+			 		.search-lab{
+			 			cursor: pointer;
+			 			background: $themeColor;
+			 			display: inline-block;
+			 			height: 100%;
+			 			color: white;
+			 			padding: 0 8px ;
+			 			border-radius: 0 4px   4px 0;
+		 			    line-height: 30px;
+			 		}
+			 		.close-search{
+			 			position: absolute;
+			 			color:red;
+			 			font-size: 18px;
+			 			right:50px;
+			 			top:4px;
+			 			display: none;
+			 			cursor: pointer;
+			 		}
+			 }
 		}
-	 }
-	 .panel-body {
-	    border: 1px solid #DDDDDD;
-	    box-sizing:border-box;
+}
+#menuBox{
+	width: 70%;
+	.datagrid .tree-icon {
+     display: inline-block; 
 	}
 	
-	 .j-mesageTemp{
-	 	margin-left:12px;
-	 	color:$themeColor;
-	 	cursor: pointer;
-	 }
-	 @at-root{
-	 	.m-set{
-	 		background: #fff;
-	 	}
-	 	.g-message{
-	 		display:none;
-	 		padding:12px;
-	 		box-sizing:border-box;
-	 		width: 100%;
-			height: 100%;
-			position: absolute;
-			top: 0px;
-			left: 0;
-			z-index: 2;
-	 	}
-	 }
-	
- }
+}
+

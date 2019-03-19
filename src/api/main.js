@@ -6,7 +6,7 @@ class ApI {
 	getLeftMenu(roleId,flag=0){
 		//  flag:0 前端页面 1：后端页面；
 		return new Promise((resolve,reject)=>{
-			$.get(baseUrl+"main/getLeftMenu.do",{role_id:roleId,flag:flag},function(res) {
+			$.get(baseUrl+"Perm/getMenu",{role_id:roleId,flag:flag,user_id},function(res) {
 				resolve(res);
 			}, "json");
 		});
@@ -16,7 +16,6 @@ class ApI {
    }
    changePwd(pwd){
 
-
    		return Promise.resolve($.ajax(
    			{
    				method:"post",
@@ -25,11 +24,7 @@ class ApI {
    			}
    		));
    }
-   getlog(){
-
-      return Promise.resolve($.post(baseUrl+"main/getlog"));
-
-   }
+   
 }
 
 

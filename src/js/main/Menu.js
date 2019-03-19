@@ -17,19 +17,19 @@ class Menu{
 		lev++;
 		return arr.map((val,index)=>{
 			
-			const {sub,name,id,menu_type_id} = val;
+			const {children,name,id,par_id,url,des} = val;
 
 			let data = {
-				sys_param:val.sys_param,
-				url:val.url,
-				menu_type_id:val.menu_type_id,
+				url,
+				par_id,
 				id,
 				lev,
+				icon:des
 			}
 
-			if(menu_type_id === 1){
+			if(par_id == -2){
  
-				let  childrenEl = this.mapMenuJson(sub,lev);
+				let  childrenEl = this.mapMenuJson(children,lev);
 
 				return this.parentComponent(childrenEl,name,data);
 
@@ -46,12 +46,13 @@ class Menu{
 
 	parentComponent(child,name,data){
 
-		let {sys_param,url,lev,menu_type_id,id}= data;
+		let {url,lev,par_id,id,icon}= data;
+
 		const  indent =new Array(lev).fill(`<span class="indent"></span>`).join("");
 		return (`
 			<li class="par_li_${lev} par_li" >
 				<div class="menuItem par-item " data-url=${url} lev="${lev}" echo-id="${id}">
-					${indent}<i class="sicon ${sys_param}"></i><span class="icon-wrap"><span class="menu-name">&nbsp;${name}</span><span class="slide-icon"><i class="fa fa-chevron-down  "></i></span></span>
+					${indent}<i class="fa ${icon}"></i><span class="icon-wrap"><span class="menu-name">&nbsp;${name}</span><span class="slide-icon"><i class="fa fa-chevron-down  "></i></span></span>
 				</div>
 				<ul class="par-menu">${child.join("")}</ul>
 		</li>
@@ -61,14 +62,11 @@ class Menu{
 
 	childComponent(name,data){
 		const  indent =new Array(+data.lev).fill(`<span class="indent"></span>`).join("");
-		let {sys_param,url,id}= data;
-
-
-		const icon = url.includes("ManageViews") && "sicon " ||  "fa ";
+		let {icon,url,id}= data;
 		return (`
 			<li>
 				<div class="menuItem child-item " data-url=${url} echo-id="${id}">
-				${indent}<i class="${icon+sys_param} ">&nbsp;</i><span class="menu-name">${name}</span>
+				${indent}<i class="fa ${icon} ">&nbsp;</i><span class="menu-name">${name}</span>
 				</div>
 			</li>
 		`);		
@@ -77,14 +75,14 @@ class Menu{
 	getIframeUrl(){
 		
 		if(!window.jsp_config.resourse){
-			
 			return function(url){
-					return url.split("/")[2];
+
+					return url.split("/")[2]+".html";
 			}
 		
 		}else{
 			return function(url){
-				return url ;
+				return url;
 			};
 		}
 	}
@@ -138,17 +136,14 @@ class Menu{
 
 			
 
-			if(Menu.status === "menu"){
-				const src = iframeUrl+".html";
+			if(Menu.status === "menu"){ //后台页面
+				const src = iframeUrl;
 				$("#routerConter").html(`<iframe frameborder="0" id="router" name="myFrameName" src="${src}"></iframe>`);
-				// page.iframe[0].src=src
 			
-			}else{
+			}else{//前台页面
 
-				const src = iframeUrl+".html?layout_id="+layout_id+"&layout_name="+layout_name;
-				$("#routerConter").html(`<iframe frameborder="0" id="router" name="myFrameName" src="${src}"></iframe>`);
-
-				// page.iframe[0].src=iframeUrl+".html?layout_id="+layout_id+"&layout_name="+layout_name;
+				const src = iframeUrl;
+				$("#routerConter").html(`<iframe frameborder="0" id="router" name="myFrameName" src="${url}"></iframe>`);
 			}
 
 		});

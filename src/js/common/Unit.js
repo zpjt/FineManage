@@ -216,9 +216,15 @@ class Search{
 		});
 		// 搜索按钮关闭
 		box.on("click",".search-close",function(){
+
 			box.removeClass("active-search");
 
-			closeCallback(_self.data);
+			Promise.resolve().then(()=>{
+
+						closeCallback(_self.data);
+
+			}) 
+		
 		});
 	}
 

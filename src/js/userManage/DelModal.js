@@ -1,15 +1,15 @@
 
-import {api} from "api/szViews.js";
+import {api} from "api/userManage.js";
 
 class DelModal{
 
 	constructor(config){
 
-		const {unit,modal,reloadStyleBox} = config;
+		const {unit,modal,reloadPage} = config;
 
 		this.unit = unit ;
 		this.modal = modal ;
-		this.reloadStyleBox = reloadStyleBox;
+		this.reloadPage = reloadPage;
 		this.$confirmBtn =$("#confirmBtn");
 		this.$confirmMView=$("#confirm-MView");
 		this.handle();
@@ -21,27 +21,25 @@ class DelModal{
 				this.unit.tipToast("选择要删去的！",2);
 				return ;
 			}
-			const id = selArr.join(",");
 			this.modal.show(this.$confirmMView);
-			this.$confirmBtn.attr("delArr",id);
+			this.$confirmBtn.data("delArr",selArr);
 	}
 
-	del(id){
-		const user_id  = window.jsp_config.user_id;
-		api.updataRecycle({user_id,id}).then(res=>{
+	async del(arr){
 
-
-				if(res){
-					this.reloadStyleBox();
-					this.unit.tipToast("删除成功！",1);
-				}else{
-					this.unit.tipToast("删除失败！",0);
+		try{
+				for (let i = 0, leg = arr.length ; i < leg; i++) {
+						const obj = arr[i];
+					  await api.delUser(obj);
 				}
+			this.unit.tipToast("删除成功！",1);
+			this.reloadPage();
+		}catch(err){
+				this.unit.tipToast("删除失败！",0);
+		}
 
-				this.modal.close(this.$confirmMView);
-
-			});
-
+	
+		this.modal.close(this.$confirmMView);
 	}
 
 
@@ -50,8 +48,8 @@ class DelModal{
 		const _self = this;
 		// 删除模态框确认按钮
 		this.$confirmBtn.click(function(){
-			const id = $(this).attr("delArr");
-			_self.del(id);
+			const idArr = $(this).data("delArr");
+			_self.del(idArr);
 		});
 	
 	}

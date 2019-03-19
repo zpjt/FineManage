@@ -1,142 +1,101 @@
-import {api} from "api/kpiWarning.js";
-import {EasyUITab} from "js/common/EasyUITab.js";
+import "css/common/EasyTab.scss";
+import {api} from "api/permissionManage.js";
 /**
  * 预警指标表格组件
  */
-class Table extends EasyUITab{
+class Table {
 
 	constructor(config)	{
-       super();
-       const {setAddModalValue,getRoleResStr} = config;
-
-       this.getRoleResStr = getRoleResStr();
 
        this.$tableBox = $("#tabBox");
        this.$table = $("#tab");
-       this.setAddModalValue = setAddModalValue ;
-       this.setPageHeight(this.$tableBox,96);
+       this.unit = config.unit ;
        this.handle();
     }
+   	setFileRole(obj){
 
-		tabConfig(idField){
+   			const userEl = $("#userList .user-item.active")[0]
+   			if(!userEl){
 
-			const getRoleResStr = this.getRoleResStr;
+   				this.unit.tipToast(`没有选择用户！`,2);
+							return ;
+					}
 
-			return {
-				idField:idField,
-				tabId:"#tabBox",
-				frozenColumns: this.frozenColumns(idField,{
-					order:true,
-					checkbox:getRoleResStr.tabOptDel
-				}),
-				columns: [
-					[{
-						field: 'kpi_name',
-						title: '指标名称',
-						width: "16%",
-						formatter:function(val){
+				const user_id = userEl.dataset.user_id;	
+   			api.setFileRole({"files":obj,user_id}).then(res=>{
 
-							return `<span style="color:#00A0E9">${val}</span>` ;
-						}
-					}, 
-					{
-						field: 'warn_condition',
-						title: '预警条件',
-						align:"center",
-						width: "15%",
-						formatter:function(val,rowData){
-							
-							return `<b>${rowData.param_cond + " , " + rowData.param_value}</b>`;
-						}
-					}, 
-					{
-						field: 'alarm_level',
-						title: '预警级别',
-						align:"center",
-						width: "8%",
-						formatter:function(val){
+   					if(res && res.data != 0){
 
-							const levStr = ["","一级","二级","三级","四级"][ +val];
+								this.unit.tipToast(`设置${res.data}条权限成功！`,1);
+   					}else{
 
-							const colorStr = ["","#00A0E9","#E96500","#E90010","red"][ +val];
-							
-							return `<b style="color:${colorStr}">${levStr}</b>`;
-						}
-					},
-					{
-						field: 'alarm_type_name',
-						title: '提醒方式',
-						align:"center",
-						width: "10%",
-					},{
-						field: 'param_user_name',
-						title: '创建人',
-						align:"center",
-						width: "10%",
-					},{
-						field: 'updata_time',
-						title: '创建时间',
-						width: "15%",
-					},
-					{
-						field: 'status',
-						title: '状态',
-						align:"center",
-						width: "8%",
-						formatter:function(val){
+								this.unit.tipToast("设置权限失败！",0);
+   					}
 
-							const status = val === "1" && "运行中" || "关闭" ;
-							const color = val === "1" && "#00A0E9" || "red" ;
 
-							return `<b style="color:${color}">${status}</b>` ;
-						}
-					},
-					
-					{
-						field: 'optBtn',
-						title: '操作',
-						align:"left",
-						width: "12%",
-						formatter: function(val, rowData,index) {
-							
-							let str = getRoleResStr.tabOptStr;
+   			});
+   	}
+    loadTab(data,callback){
+    	 const _self = this ;
+				this.$table.treegrid({
+					animate: false,
+					data: data,
+					fitColumns: true,
+					scrollbarSize: 0,
+					rownumbers: false,
+					lines:true,
+					checkbox:true,
+					idField: 'id',
+					treeField: 'name',
+					columns: [
+						[{
+							"field": "name",
+							"title": "目录名称",
+							"align": "left",
+							"width": "85%",
+						},{
+							field: 'optBtn',
+							title: '操作',
+							align:"left",
+							width: "10%",
+							formatter: function(val,rowData) {
 
-							return `
-									<div class="tabBtnBox" echo-data='${index}' >
-											${str}
-									</div>
-								`;
-						}
-					}]
-				],
-			};
-    }
+								return rowData.type !=0 ? `
+										<div class="tabBtnBox" echo-data='${rowData.id}' >
+												<div class="tab-opt" node-sign="permission"><i class="fa fa-cogs fa-lg">&nbsp;</i><span>权限设置</span></div>	</div>
+									`:"";
+							}
+						}]
+					],
+					onLoadSuccess:function(){
+							_self.unit.closeLoading();
 
-    loadTab(data){
-			this.creatTab(data,this.$table,this.tabConfig("id"));
+							callback && callback();
+
+					}
+			});
     }
 
     handle(){
     	const _self = this ;
     	const $tableBox = this.$tableBox;
-			//复选框事件
-			$tableBox.on("click",".checkSingle",function(){
-				_self.checkSingleHandle($tableBox);
-			});
 		
 		$tableBox.on("click",".tab-opt",function(){
 
 			const type =  $(this).attr("node-sign");
 			const par = $(this).parent(),
-				  index = +par.attr("echo-data");
+				    id = +par.attr("echo-data");
 
 			
 			switch(type){
-				case "mod":{
+				case "permission":{
 
-					const node = _self.$table.datagrid("getData").rows[index];
-					_self.setAddModalValue(node);
-
+					const node = _self.$table.treegrid("find",id);
+					if(!node){
+							return ;
+					}
+					const {name,path,type} = node ;
+					_self.setFileRole([{name,path,type}]);
 					break;
 				}
 				default:

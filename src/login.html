@@ -18,48 +18,56 @@
 		<section class="g-content">
 
 			<div class="g-login">
-				<header>
-					<p class="m-title">管理者视图</p>
-					<p class="m-sub-title">欢迎回来,请登录您的账号和密码！</p>
-				</header>
-				<div class="g-inpBox">
-					<div class="m-item">
-						<span class="g-input">
-							<input class="inp-field " type="text" id="user">
-							<label class="inp-label" for="user">
-								<span class="lab-content ">账户</span>
-							</label>
-							<svg class="graphic" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
-								<path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>
-							</svg>
-						</span>
-						<p class="warn" id="user_warn"></p>
-					</div>
-					<div class="m-item">
-						<span class="g-input">
-							<input class="inp-field " type="password" id="pwd">
-							<label class="inp-label " for="pwd">
-								<span class="lab-content ">密码</span>
-							</label>
-							<svg class="graphic " width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
-								<path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>
-							</svg>
-						</span>
-						<p class="warn" id="pwd_warn"></p>
-					</div>
-					<div class="g-remind">
-						<input id="remind" type="checkbox" class="inp-check"  data-text="Black, circled" >
-						<label aria-label="" role="checkbox" for="remind" class="checkbix"><span class="shape"></span>记住我</label>
-					</div>
-					<div class="g-submit">
-						<div>
-							<button id="j-login" class="particles-button s-btn">
-								登录
-							</button>
+
+				<div class="g-login-bg">
+					<div style="background:rgba(0,84,230,.5);height: 100% "></div>
+				</div>
+			
+				<div>
+					<header>
+						<p class="m-title">数据决策系统</p>
+						<p class="m-sub-title">欢迎回来,请登录您的账号和密码！</p>
+					</header>
+					<div class="g-inpBox">
+						<div class="m-item">
+							<span class="g-input">
+								<input class="inp-field " type="text" id="user">
+								<label class="inp-label" for="user">
+									<span class="lab-content ">账户</span>
+								</label>
+								<svg class="graphic" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+									<path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>
+								</svg>
+							</span>
+							<p class="warn" id="user_warn"></p>
 						</div>
-						<p class="warn" id="warn"></p>
+						<div class="m-item">
+							<span class="g-input">
+								<input class="inp-field " type="password" id="pwd">
+								<label class="inp-label " for="pwd">
+									<span class="lab-content ">密码</span>
+								</label>
+								<svg class="graphic " width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+									<path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>
+								</svg>
+							</span>
+							<p class="warn" id="pwd_warn"></p>
+						</div>
+						<div class="g-remind">
+							<input id="remind" type="checkbox" class="inp-check"  data-text="Black, circled" >
+							<label aria-label="" role="checkbox" for="remind" class="checkbix"><span class="shape"></span>记住我</label>
+						</div>
+						<div class="g-submit">
+							<div>
+								<button id="j-login" class="particles-button s-btn">
+									登录
+								</button>
+							</div>
+							<p class="warn" id="warn"></p>
+						</div>
 					</div>
 				</div>
+
 			</div>
 			<footer class="g-footer">
 				<p>技术支持：深圳市长城网科技股份有限公司</p>
@@ -82,7 +90,7 @@
 	<script src="assert/js/md5.js"></script>
 	<script>
 		window.jsp_config={
-				baseUrl:"ManageViews/",
+				baseUrl:"finemanage/",
 				base:'main/',
 				user_id:"10", // 144
 				role_id:"70000",

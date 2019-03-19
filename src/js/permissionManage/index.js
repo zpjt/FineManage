@@ -1,57 +1,8 @@
 import "css/permissionManage.scss";
-import {api} from "api/kpiWarning.js";
+import {api} from "api/permissionManage.js";
 import {EasyUITab} from "js/common/EasyUITab.js";
-import {Unit, SModal,SInp,Search} from "js/common/Unit.js";
-import {AddModal} from "./AddModal.js";
+import {Unit,Search} from "js/common/Unit.js";
 import {Table} from "./Table.js";
-
-
- 
-
-
-class DelModal{
-
-	static delArr = null;
-
-	constructor(config){
-		const {unit,reloadTab,modal} = config ;
-		this.unit = unit ;
-		this.modal = modal ;
-		this.reloadTab = reloadTab ;
-		this.confirmBtn = $("#confirmBtn");
-		this.confirmMd = $("#confirm-MView");
-		this.handle();
-	}
-
-
-	del(ids){
-
-		api.deleteAlarm(ids).then(res=>{
-			if(res){
-				this.unit.tipToast("删除预警指标成功！",1);
-				this.reloadTab();
-			}else{
-				this.unit.tipToast("删除预警指标失败！",0);
-			}
-			DelModal.delArr = null ;
-		});
-	}
-
-
-	handle(){
-		
-		const _self = this;
-		// 删除模态框确认按钮
-		this.confirmBtn.click(function(){
-
-			const obj = DelModal.delArr;
-			_self.del(obj);
-			_self.modal.close(_self.confirmMd);
-		});
-	
-	}
-}
-
 
 
 /**
@@ -59,143 +10,114 @@ class DelModal{
  */
 class Page{
 
-	static tabOptStr = "" ;
-	static tabOptDel = "" ;
-
 	constructor(){
 
 		this.btnBox = $("#btnBox");
 		
 		this.handle();
-
-		//权限按钮
-		this.getRoleRes().then(res=>{
-			if(res){
-				this.init();
-			}
-		})
+		this.init();
+		
 	}
 
-	getRoleRes(){
-
-		return 	api.roleResource().then(res=>{
-			
-				if(res){
-
-					const config = {
-						add:["fa fa-plus","添加指标预警","s-moema"],
-						del:["fa fa-trash","","s-sacnite"],
-						mod:["fa fa-sliders","设置"],
-					};
-
-					const strArr = res.btn.map(val=>{
-
-						const {btn_code,btn_flag} = val ;
-
-						if(btn_code === "mod"){ 
-
-							Page.tabOptDel = btn_flag === "1";
-							
-							const str = btn_flag === "1" && `<div class="tab-opt s-btn s-Naira" node-sign="${btn_code}">
-																	<i class="${config[btn_code][0]}"></i>
-																	<span>${config[btn_code][1]}</span>	
-															</div>` || "";
-							
-							Page.tabOptStr = str;
-
-							return "";
-						 }else{
-
-							return btn_flag === "1" && `<button class="s-btn  ${config[btn_code][2]}" sign="${btn_code}">
-															<i class="${config[btn_code][0]}"></i>
-															<span>${config[btn_code][1]}</span>
-														</button>` || "";
-
-						 };
-
-						
-					});
-
-					
-					this.btnBox.html(strArr.join(""));
-
-					return true ;
-			
-				}else{
-					this.unit.tipToast("获取功能权限出错！","0");
-
-					return false ;
-				}
-
-		});
-	}
+	
 
 	init(){
 
 
-		this.inp = new SInp();
 		this.unit = new Unit();
-		this.modal = new SModal();
-
-		//设置模态框
-		this.addModal = new AddModal({
-			unit:this.unit,
-			modal:this.modal,
-			reloadTab:()=>{
-				this.getData();
-			},
-		});
-
 		this.table = new Table({
-			setAddModalValue:(node)=>{
-				this.addModal.setValue(node);
-			},
-			getRoleResStr:()=>{
-				return {
-					 tabOptStr: Page.tabOptStr ,
-					 tabOptDel: Page.tabOptDel ,
-				};
-			}
+			unit:this.unit,
 		});	
 
 		//搜索
-	
 		this.search = new Search($("#u-search"),{
 			serachCallback:(result)=>{
 				
-				this.table.loadTab(result);
+				this.table.loadTab(result,function(){
+						$("#tab").treegrid("expandAll");
+				});
+
+			
+
 			},
 			closeCallback:(res)=>{
-				
+				this.unit.openLoading();
 				this.table.loadTab(res);
 			},
-			keyField:"kpi_name",
-
-		});
-
-		this.delModal = new DelModal({
-			unit:this.unit,
-			modal:this.modal,
-			reloadTab:()=>{
-				this.getData();
+			keyField:"name",
+			judgeRelation:(val)=>{
+					return val["type"] == 0 ;
 			},
+			is_Arr:false,
+
 		});
+
+		
 		this.getData();
 	}
 
-	getData(){
+	renderUserList(data){
 
-		api.getAllKpiAlarm().then(res=>{
+		const str = data.map((val,index)=>{
+
+				const {id,name} = val ;
+				return `<div class="user-item ${index === 0 ? "active" :""}" data-user_id="${id}"><i class="fa fa-user">&nbsp;</i><span>${name}</span></div>` ;
+		});
+
+		$("#userList").html(str.join(""));
+
+	}
+
+	searchUser(key){
+
+
+			const result = this.userListdata.filter(val=>{
+
+				return val.name.includes(key);
+			});
+
+
+			this.renderUserList(result);
+
+
+	}
+
+
+	getData(){
+   	this.unit.openLoading();
+		api.getFineDire().then(res=>{
 
 			if(!res){
-				this.unit.tipToast("获取预警指标失败！",0);
+				this.unit.tipToast("获取目录失败！",0);
 			}else{
-				this.search.data = res;
-				this.table.loadTab(res);
+						res.data.children.forEach(function(val){
+								if(val.type==0){
+									val.state="closed";
+
+								}	
+						});
+					const copy_data= JSON.parse(JSON.stringify(res.data));
+					this.search.data = [copy_data];
+					this.table.loadTab([res.data]);
 			}
 
 		});
+
+		api.getUserList().then(res=>{
+
+			if(!res || !res.data){
+				this.unit.tipToast("获取用户列表失败！",0);
+			}else{
+					this.userListdata = res.data ;
+					this.renderUserList(res.data);
+			}
+
+		});
+	
+
 	}
+
+
  
 
 	handle(){
@@ -230,6 +152,73 @@ class Page{
 				default:
 				break;
 			}
+		});
+
+		$("#userList").on("click",".user-item",function(){
+
+				$("#userList .user-item.active").removeClass("active");
+				$(this).addClass("active");
+
+				$("#tab").treegrid("clearChecked");
+
+		});
+
+		$("#optBtn").on("click",".s-btn",function(){
+
+			const $this = $(this);
+			const type = $this.attr("sign");
+
+			switch(type){
+
+				case"permission":{
+						
+						const fileArr = [...$("#tabBox").find(".tree-checkbox1")].reduce((total,cur)=>{
+
+											const id = $(cur).closest(".datagrid-row").attr("node-id");
+											const node = $("#tab").treegrid("find",id);
+											if(node && node.type == 1 ){
+													const  {name,path,type} = node ;
+													total.push({name,path,type});
+											}
+										return total ;
+						},[]);
+						if(!fileArr.length){
+								_self.unit.tipToast("请选择文件！",2);
+								return ;
+						}
+						_self.table.setFileRole(fileArr);
+
+					break;
+				}
+			}
+
+
+
+		});
+
+		$("#j-search-user").click(function(){
+
+
+
+			var key = $(this).siblings(".s-inp").val().trim();
+
+			if(!key){
+				return ;
+			}
+
+			$(".close-search").show();
+
+			_self.searchUser(key);
+
+
+		});
+
+		$(".close-search").click(function(){
+
+			$(this).siblings(".s-inp").val(null);
+				_self.renderUserList(_self.userListdata);
+					$(this).hide();
+
 		});
 
 	}
