@@ -1,4 +1,4 @@
-# Compiled class file
+﻿# Compiled class file
 *.class
 
 # Log file
@@ -23,5 +23,6 @@
 hs_err_pid*
 #忽略 node_modules
 /node_modules/
+/dist/
 #忽略 js缓存
 .cache

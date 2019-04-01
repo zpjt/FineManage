@@ -87,8 +87,9 @@ class Page{
    	this.unit.openLoading();
 		api.getFineDire().then(res=>{
 
-			if(!res){
+			if(!res || !res.data){
 				this.unit.tipToast("获取目录失败！",0);
+				this.unit.closeLoading();
 			}else{
 						res.data.children.forEach(function(val){
 								if(val.type==0){

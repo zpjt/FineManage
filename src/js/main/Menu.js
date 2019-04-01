@@ -28,6 +28,7 @@ class Menu{
 			}
 
 			if(par_id == -2){
+
  
 				let  childrenEl = this.mapMenuJson(children,lev);
 
@@ -64,9 +65,9 @@ class Menu{
 		const  indent =new Array(+data.lev).fill(`<span class="indent"></span>`).join("");
 		let {icon,url,id}= data;
 		return (`
-			<li>
+			<li class="child_li child_li_${data.lev}">
 				<div class="menuItem child-item " data-url=${url} echo-id="${id}">
-				${indent}<i class="fa ${icon} ">&nbsp;</i><span class="menu-name">${name}</span>
+				${indent}<i class="fa ${icon} ">&nbsp;</i><span class="icon-wrap"><span class="menu-name">${name}</span></span>
 				</div>
 			</li>
 		`);		

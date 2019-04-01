@@ -1,4 +1,4 @@
-require("js/common/ajaxhook.min.js");
+import "js/common/ajaxhook.min.js";
 
 const {baseUrl,resourse} = window.jsp_config; 
 

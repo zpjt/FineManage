@@ -1,4 +1,4 @@
-require("api/index.js");
+import "api/index.js";
 
 const {role_id,baseUrl,user_id} = window.jsp_config;
 

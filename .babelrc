@@ -3,17 +3,18 @@
 		["env",
 			{
 				"targets": {
-	        		 "chrome": "50",
-	        		 "firefox": "50",
-	     		 }
+	        		 "chrome": "40",
+	        		 "firefox": "40",
+	     		 },
+	     		 "moudle":false
 			}
 		],
 		"stage-0",
 		],
 	"plugins":[
 		["transform-runtime",{
-			"helpers": false,
-		    "polyfill": false,
+			"helpers": true,
+		    "polyfill": true,
 		    "regenerator": true,
 		    "moduleName": "babel-runtime"
 		}]

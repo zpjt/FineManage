@@ -1,5 +1,5 @@
 
-require("./index.js");
+import "./index.js";
 
 const control = "Perm/";
 const {baseUrl} = window.jsp_config;

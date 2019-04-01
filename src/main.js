@@ -107,7 +107,7 @@ class Page{
 					});
 				}else{
 					$(".slide-icon").html('<i class="fa fa-chevron-down"></i>');
-					$slide.animate({"width":250},500,function(){
+					$slide.animate({"width":300},500,function(){
 						$slide.removeClass("collapsed");
 					});
 				}

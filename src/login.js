@@ -1,8 +1,8 @@
 import "css/login.scss";
 import Particles from "js/common/particles.js" ;
 import {Remind} from "js/login/Remind.js" ;
+import  anime  from "js/common/anime.min.js";
 
-const  anime = require("js/common/anime.min.js");
 const {baseUrl} = window.jsp_config;
 
 
