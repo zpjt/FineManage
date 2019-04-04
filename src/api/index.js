@@ -8,7 +8,7 @@ hookAjax({
 	    //拦截回调
 	    onreadystatechange:function(xhr){
 	    	if(xhr.responseXML){
-	    		window.open (rootUrl+'login.html','_top')
+	    		window.open (rootUrl+'login','_top')
 	    		return true ;
 	    	}
 	    },
@@ -21,7 +21,7 @@ hookAjax({
 	      }	 	
 
 	    	if(xhr.responseXML){
-	    		window.open (rootUrl+'login.html','_top')
+	    		window.open (rootUrl+'login','_top')
 	    		return true ;
 	    	}
 	    },

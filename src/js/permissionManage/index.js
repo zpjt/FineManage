@@ -16,7 +16,7 @@ class Page{
 		
 		this.handle();
 		this.init();
-		
+		this.hasData = false ;
 	}
 
 	
@@ -82,36 +82,72 @@ class Page{
 
 	}
 
+	getUserSelArr(userId){
 
-	getData(){
+		const $easyUITab = $("#tab");
+		if(!this.hasData){
+			return ;
+		}
+		
+		this.unit.openLoading();
+		api.getFineDireByUser(userId).then(res=>{
+			if(res.data){
+					
+					$easyUITab.treegrid("clearChecked");
+					res.data.forEach(val=>{
+						!!$easyUITab.treegrid("find",val) && $easyUITab.treegrid("checkNode",val);
+					});
+			}
+			this.unit.closeLoading();
+		})
+	}
+
+
+	 getData(){
    	this.unit.openLoading();
-		api.getFineDire().then(res=>{
 
-			if(!res || !res.data){
-				this.unit.tipToast("获取目录失败！",0);
-				this.unit.closeLoading();
-			}else{
-						res.data.children.forEach(function(val){
-								if(val.type==0){
-									val.state="closed";
+		Promise.all([api.getFineDire(),api.getUserList()]).then(res=>{
 
-								}	
-						});
-					const copy_data= JSON.parse(JSON.stringify(res.data));
-					this.search.data = [copy_data];
-					this.table.loadTab([res.data]);
-			}
+				const [fineDire,userList] = res ; 
+				
+				if(!fineDire || !fineDire.data){
+						this.unit.tipToast("获取目录失败！",0);
+						this.unit.closeLoading();
+				}else{
+								fineDire.data.children.forEach(function(val){
+										if(val.type==0){
+											val.state="closed";
 
-		});
+										}	
+								});
 
-		api.getUserList().then(res=>{
+							const copy_data= JSON.parse(JSON.stringify(fineDire.data));
+							this.search.data = [copy_data];
+							this.table.loadTab([fineDire.data]);
 
-			if(!res || !res.data){
-				this.unit.tipToast("获取用户列表失败！",0);
-			}else{
-					this.userListdata = res.data ;
-					this.renderUserList(res.data);
-			}
+							this.hasData=true;
+				};
+
+				if(!userList || !userList.data){
+					
+					this.unit.tipToast("获取用户列表失败！",0);
+
+					return ;
+			
+				}else{
+						this.userListdata = userList.data ;
+						this.renderUserList(userList.data);
+				};
+
+
+				if(fineDire.data && userList.data){
+
+						const firstUserId = userList.data[0].id ;
+
+						this.getUserSelArr(firstUserId);
+
+				}
+
 
 		});
 	
@@ -160,7 +196,7 @@ class Page{
 				$("#userList .user-item.active").removeClass("active");
 				$(this).addClass("active");
 
-				$("#tab").treegrid("clearChecked");
+				_self.getUserSelArr(this.dataset.user_id);
 
 		});
 

@@ -75,7 +75,7 @@ class Page{
 	renderMenu(flag){
 		return api.getLeftMenu(role_id,flag).then(res=>{
 
-			if(res && res.data){
+			if(res && res.data.length){
 				const data = res.data;
 				const ElArr = this.menu.mapMenuJson(data,0);
 				this.menu.box.html(ElArr.join(""));

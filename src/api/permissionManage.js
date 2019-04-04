@@ -16,7 +16,9 @@ class API {
 	getUserList(obj){
 		return Promise.resolve($.get(URL+"getUserList"));
 	}
-
+	getFineDireByUser(user_id){
+		return Promise.resolve($.get(URL+"getFineDireByUser",{user_id}));
+	}
 	setFileRole(obj){
 		
 		return Promise.resolve(
