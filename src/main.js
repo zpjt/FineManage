@@ -6,7 +6,7 @@ import {Menu} from "js/main/Menu.js";
 
 
 
-const {role_id,baseUrl,base} = window.jsp_config;
+const {baseUrl,base} = window.jsp_config;
 
 
 class Page{
@@ -28,7 +28,34 @@ class Page{
 
 		this.menu = new Menu();
 		this.renderMenu(0);
+		this.renderRoleChange();
 	
+	}
+	renderRoleChange(){
+			const {roleIdArr,roleNameArr,role_id} = window.jsp_config;
+
+			const str = roleIdArr.map((val,index)=>{
+
+				const active = role_id == val ? "active-role" :"" ;
+
+				return `<li data-id="${val}" class="${active}"><i class="fa fa-user">&nbsp;&nbsp;</i>${roleNameArr[index]}</li>`
+			})
+			$("#roleOpt").html(str.join(""));
+			const _this = this;
+			$("#roleOpt").on("click","li",function(){
+        const $this =$(this);
+        const id =$this.attr("data-id");
+
+        $this.addClass("active-role").siblings().removeClass("active-role");
+
+       window.jsp_config.role_id = id ;
+
+       	_this.renderMenu(1);
+
+
+			});
+
+
 	}
 
 	findFistMenuID(res){
@@ -73,20 +100,22 @@ class Page{
 	}
 
 	renderMenu(flag){
+		const role_id = window.jsp_config.role_id;
 		return api.getLeftMenu(role_id,flag).then(res=>{
 
+			$("#routerConter").html(`<iframe frameborder="0" id="router" name="myFrameName"></iframe>`);
 			if(res && res.data.length){
 				const data = res.data;
 				const ElArr = this.menu.mapMenuJson(data,0);
 				this.menu.box.html(ElArr.join(""));
 					
 				const id_first = this.findFistMenuID(data);
-				$(`.menuItem[echo-id=${id_first}]`).click();
+				$(`.menuItem[echo-id=${id_first}]`).eq(0).click();
 
 			}else{
 				this.unit.tipToast("菜单为空",2);
 				this.menu.box.html("");
-				$("#routerConter").html(`<iframe frameborder="0" id="router" name="myFrameName"></iframe>`);
+				
 			}
 			
 		});

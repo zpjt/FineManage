@@ -40,9 +40,16 @@
 							<b>医疗决策质量分析</b>
 						</p>
 					</li>
-					<li>
-						<ul class="roleBox">
+					<li >
+						<ul class="roleBox" >
 						
+							<li  id="role-opt" style="margin-right: 16px;cursor: pointer;">
+								<span id="role" ><i class="fa fa-exchange ">&nbsp;</i>角色切换</span>
+								<ul class="roleOpt" id="roleOpt">
+									
+								</ul>
+							</li>
+
 						<li  id="user">
 							<span id="userOption"><i class="fa fa-user">&nbsp;</i>demo</span>
 							<ul class="userOpt" id="userOpt">
@@ -70,6 +77,8 @@
 				user_id:"206", // 144
 				role_id:"3101",
 				resourse:"",
+				roleIdArr:[3101, 3102, 3103],
+        roleNameArr:["系统管理员", "部门管理员", "普通用户"],
 		};
     </script>
 	<script src="assert/js/jquery.min.js"></script>

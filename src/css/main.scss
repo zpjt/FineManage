@@ -31,21 +31,34 @@
 		&>li{
 			padding-left:15px;
 		}
+	
     }
 	
 	@at-root{
+		#role-opt{
+			position: relative;
+			&:hover{
+				.roleOpt{
+					display: block;
+				}
+			}
+		}
 		#user{
+			position: relative;
 			&:hover{
 				.userOpt{
 					display: block;
 				}
 			}
 		}
-		.userOpt{
-			display: none;
-			position: absolute;
+		.active-role{
+			background:#666;
+		}
+		.roleOpt,.userOpt{
+			  display: none;
+			  position: absolute;
 		    top: 63px;
-		    right: 34px;
+		    left: 0;
 		    z-index:10;
 		    line-height: 26px;
 		    background: black;
@@ -68,6 +81,15 @@
 				border:14px solid transparent;
 				border-bottom-color:black;
 			}
+
+		
+		}
+
+			.roleOpt{
+				width: 120px;
+		}
+		.userOpt{
+				width: 100px;
 		}
 		#theme{
 			padding-left:24px;

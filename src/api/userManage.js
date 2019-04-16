@@ -1,7 +1,7 @@
 
 import "./index.js";
 
-const {baseUrl,role_id} = window.jsp_config;
+const {baseUrl} = window.jsp_config;
 const control = "Perm/";
 
 const URL= baseUrl+control;

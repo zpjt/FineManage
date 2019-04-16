@@ -23,7 +23,6 @@ class Page{
 
 	init(){
 
-
 		this.unit = new Unit();
 		this.table = new Table({
 			unit:this.unit,
@@ -51,6 +50,8 @@ class Page{
 		
 		this.getData();
 	}
+
+	
 
 	renderUserList(data){
 

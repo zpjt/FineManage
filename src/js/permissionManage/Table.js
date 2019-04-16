@@ -96,8 +96,6 @@ class Table {
 					if(!node){
 							return ;
 					}
-					const statusStr = node.checked ? "uncheckNode" :"checkNode";
-					_self.$table.treegrid(statusStr,id);
 					const {name,path,type} = node ;
 					const status = node.checked ? 0 : -1 ;
 					_self.setFileRole([{name,path,type}],status,true);

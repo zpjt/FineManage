@@ -52,7 +52,7 @@ class Menu{
 		const  indent =new Array(lev).fill(`<span class="indent"></span>`).join("");
 		return (`
 			<li class="par_li_${lev} par_li" >
-				<div class="menuItem par-item " data-url=${url} lev="${lev}" echo-id="${id}">
+				<div class="menuItem par-item " data-url="${url}" lev="${lev}" echo-id="${id}">
 					${indent}<i class="fa ${icon}"></i><span class="icon-wrap"><span class="menu-name">&nbsp;${name}</span><span class="slide-icon"><i class="fa fa-chevron-down  "></i></span></span>
 				</div>
 				<ul class="par-menu">${child.join("")}</ul>
@@ -66,7 +66,7 @@ class Menu{
 		let {icon,url,id}= data;
 		return (`
 			<li class="child_li child_li_${data.lev}">
-				<div class="menuItem child-item " data-url=${url} echo-id="${id}">
+				<div class="menuItem child-item " data-url="${url}" echo-id="${id}">
 				${indent}<i class="fa ${icon} ">&nbsp;</i><span class="icon-wrap"><span class="menu-name">${name}</span></span>
 				</div>
 			</li>
@@ -132,6 +132,8 @@ class Menu{
 				  layout_name = $this.find(".menu-name").html();
 
 			const url=$this.attr("data-url");
+
+
 
 			const iframeUrl = getUrlMethod(url);
 
