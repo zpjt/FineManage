@@ -32,13 +32,9 @@ class Page{
 		//搜索
 		this.search = new Search($("#u-search"),{
 			serachCallback:(result)=>{
-				
 				this.table.loadTab(result,function(){
 						$("#tab").treegrid("expandAll");
 				});
-
-			
-
 			},
 			closeCallback:(res)=>{
 				this.unit.openLoading();
@@ -219,11 +215,10 @@ class Page{
 											}
 										return total ;
 						},[]);
-						if(!fileArr.length){
-								_self.unit.tipToast("请选择文件！",2);
-								return ;
-						}
-						_self.table.setFileRole(fileArr);
+
+						var status = fileArr.length === 0 ? -1 : 0 ;
+
+						_self.table.setFileRole(fileArr,status);
 
 					break;
 				}

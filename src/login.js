@@ -1,7 +1,6 @@
 import "css/login.scss";
 import Particles from "js/common/particles.js" ;
 import {Remind} from "js/login/Remind.js" ;
-import  anime  from "js/common/anime.min.js";
 
 const {baseUrl} = window.jsp_config;
 
@@ -21,43 +20,7 @@ class Login{
         this.user = $("#user"),
         this.warn = $("#warn"),
         this.pwd = $("#pwd");
-
-        this.initSubBtn();
 	}
-
-    backBtn(){
-
-        let {particles,buttonVisible} = this;
-         if ( !particles.isAnimating()) {
-                particles.integrate({
-                    duration: 800,
-                    easing: 'easeOutSine'
-                });
-            }
-    }
-
-    async initSubBtn(){
-        
-        const bttn = this.subBtn[0];
-        this.buttonVisible = true;
-        const _self = this ;
-
-        const particlesOpts = {
-                    color:"#43425D",
-                };
-
-        particlesOpts.complete = () => {
-         
-           if(!_self.buttonVisible){
-             _self.backBtn();
-             _self.buttonVisible = true;
-           } 
-
-        };
-
-        this.particles = new Particles(bttn, particlesOpts);
-      
-    }
 
     login(obj){
 
@@ -105,57 +68,40 @@ class Login{
 
         this.subBtn.on("click",function(){
 
-         
+             $("#login-status").show();
              const {originPwd ,...obj} = _self.getvalue();
               _self.warn.html("")
-              _self.buttonVisible = false;
-
-            const animate = new  Promise(function(resolve){
-                    setTimeout(function(){
-                       resolve("test1");
-                    }, 1000);
-            });
-
+        
             const login = _self.login(obj).then(data=>{
                 
+                $("#login-status").hide();
                 if(data.url=="null") {
-                     _self.particles.pause();
                       _self.warn.html('<span id="warnContent"><i class="fa fa-exclamation-triangle"></i>用户名或密码错误！</span>');
                 }else if(data.url == "0"){
-                      _self.particles.pause();
                       _self.warn.html('<span class="warnContent" ><i class="fa fa-exclamation-triangle"></i>该账户已被禁用</span></p>');
-                }
-
-                 anime({
-                        targets: '#warnContent',
-                        translateX:"-100%",
-                        duration: 1000,
-                        easing: [.91,-0.54,.29,1.56]
-                  });
-
-                return data ;
-            });
-
-            Promise.all([animate,login]).then(res=>{
-               
-                const data = res[1];
-                if(data.url ==="/index") {
+                }else if(data.url ==="/index") {
 
                      _self.remindSet(originPwd,obj.name);
                   
                      if(window.jsp_config.resourse){
-                         window.location.href= window.jsp_config.resourse + data.url;
-                         consoel.log(window.jsp_config.resourse+data.url); 
+
+                         $.ajax({
+                            url:data.fineUrl,
+                            data:data.finedata[0],
+                            dataType: 'jsonp', 
+                            callback: 'callback',
+                            success:function(){
+                                console.log("登录成功！");
+                                window.location.href= window.jsp_config.resourse + data.url;
+                            }
+                         });
+
                      }else{
                         window.location.href= data.url; 
                      }
                 }
+             
             });
-           
-            let {particles,buttonVisible} = _self;
-            if ( !particles.isAnimating()) {
-                particles.disintegrate();
-            }
         });
 	}
 }

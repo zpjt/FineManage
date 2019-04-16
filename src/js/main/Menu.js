@@ -27,7 +27,7 @@ class Menu{
 				icon:des
 			}
 
-			if(par_id == -2){
+			if(children.length){
 
  
 				let  childrenEl = this.mapMenuJson(children,lev);

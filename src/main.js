@@ -35,14 +35,14 @@ class Page{
 		
 		let flag = res[0];
 
-		let is_par = flag.par_id == -2 ; 
+		let is_par = flag.children.length != 0 ; 
 
 		let id = flag.id;
 
 		while(is_par){
 
 			flag = flag.children[0];
-			is_par = flag.is_par == -2 ; 
+			is_par = flag.children.length != 0 ; 
 			id = flag.id;
 
 		}
@@ -85,7 +85,8 @@ class Page{
 
 			}else{
 				this.unit.tipToast("菜单为空",2);
-				
+				this.menu.box.html("");
+				$("#routerConter").html(`<iframe frameborder="0" id="router" name="myFrameName"></iframe>`);
 			}
 			
 		});

@@ -12,7 +12,7 @@ class Table {
        this.unit = config.unit ;
        this.handle();
     }
-   	setFileRole(obj){
+   	setFileRole(obj,status=0,is_single=false){
 
    			const userEl = $("#userList .user-item.active")[0]
    			if(!userEl){
@@ -22,11 +22,12 @@ class Table {
 					}
 
 				const user_id = userEl.dataset.user_id;	
-   			api.setFileRole({"files":obj,user_id}).then(res=>{
+   			api.setFileRole({"files":obj,user_id,status}).then(res=>{
 
-   					if(res && res.data != 0){
-
-								this.unit.tipToast(`设置${res.data}条权限成功！`,1);
+   					if(res && res.data){
+   							const str = is_single ? status==-1 && "删去" || "新增" :"批量设置";
+								res.data ? this.unit.tipToast(`${str+res.data}条权限成功！`,1) : this.unit.tipToast(`清除所有设置！`,1);
+   					
    					}else{
 
 								this.unit.tipToast("设置权限失败！",0);
@@ -68,12 +69,13 @@ class Table {
 						}]
 					],
 					onLoadSuccess:function(){
-							_self.unit.closeLoading();
+							
 
 							callback && callback();
 
 					}
 			});
+				_self.unit.closeLoading();
     }
 
     handle(){
@@ -84,7 +86,7 @@ class Table {
 
 			const type =  $(this).attr("node-sign");
 			const par = $(this).parent(),
-				    id = +par.attr("echo-data");
+				    id = par.attr("echo-data");
 
 			
 			switch(type){
@@ -94,8 +96,11 @@ class Table {
 					if(!node){
 							return ;
 					}
+					const statusStr = node.checked ? "uncheckNode" :"checkNode";
+					_self.$table.treegrid(statusStr,id);
 					const {name,path,type} = node ;
-					_self.setFileRole([{name,path,type}]);
+					const status = node.checked ? 0 : -1 ;
+					_self.setFileRole([{name,path,type}],status,true);
 					break;
 				}
 				default:

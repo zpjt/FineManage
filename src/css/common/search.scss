@@ -15,27 +15,27 @@ $themeColor:#00a0e9;
 	.input-box{
 		position: relative;
 		display: inline-block;
-		width: 40px;
+		width: 450px;
+		background: white;
+		border-radius:40px;
 		height: 40px;
 		line-height:40px;
 		overflow: hidden;
-		transition: all .4s ease-in-out;
 		padding:0 15px;
 		box-sizing:border-box;
+		padding-right:60px;
 	}
 	.search-btn{
 		position: absolute;
-		right:0;
+		padding: 0;
+		right:10px;
 		top:0;
 		width: 40px;
 		height: 40px;
 		background:white;
-		transition: all .4s ease-out;
 		z-index:2;
 		box-sizing: border-box;
-		&:hover .search-icon{
-			transform:rotate(-45deg);
-		}
+		
 	}
 
 	.search-icon{
@@ -43,9 +43,8 @@ $themeColor:#00a0e9;
 		display:inline-block;
 		width: 22px;
 		height: 22px;
-	    vertical-align: middle;
-	    transform:rotate(45deg);
-	    transition: all .4s cubic-bezier(.65,-.6,.24,1.65);
+    vertical-align: middle;
+    transform:rotate(-45deg);
 		&:before{
 			position: absolute;
    			content: '';
@@ -65,28 +64,19 @@ $themeColor:#00a0e9;
 	}
 
 	.search-inp{
-		opacity:0;
+		opacity:1;
 		padding: 0 5px;
 		width:100%;
-	    transform: translate(0,60px);
-	    background: transparent;
-		transition: all .4s  cubic-bezier(0,.105,.035,1.57) .3s;
+    background: transparent;
+		
 	}
 	.search-close{
 		cursor: pointer;
 		position: absolute;
-		top:4px;
-		right:15px;
-		transition: all .3s cubic-bezier(.285,-.45,.935,.11);
-		transition-delay: .2s;
+		top:10px;
+		right:50px;
 		color:$themeColor;
-		.fa{
-			transition: transform .3s ease-out;
-		}
-		
-		&:hover .fa{
-			transform: scale(1.5);
-		}
+		display: none;
 	}
 	
 }
@@ -101,39 +91,8 @@ $themeColor:#00a0e9;
     }
 }
 
-.search-wrap.active-search{
-	.search-btn{
-		//@include redius-shape(40px,none,white);
-		right:10px;
-		&:hover .search-icon{
-			animation:allRotate  2.5s linear infinite both;
-		}
-		
-	}
-	.search-btn:active .search-icon{
-		animation-play-state:paused;
-	}
-	.search-icon{
-		transform:rotate(-45deg);
-
-	}
-	.input-box{
-		width: 450px;
-		padding-right:60px;
-		//background: rgba(0,0,0,.5);
-		background: white;
-
-		border-radius:40px;
-	}
-	.search-inp{
-		opacity:1;
-		 transform: translate(0,0) ;
-	}
+.active-search{
 	.search-close{
-		right:-55px;
-		transform: rotate(360deg);
-		transition: all .6s cubic-bezier(0,.105,.035,1.57);
-	    transition-delay: .7s;
+		display: block;
 	}
 }
-
