@@ -107,7 +107,21 @@ class Page{
 			if(res && res.data.length){
 				const data = res.data;
 				const ElArr = this.menu.mapMenuJson(data,0);
-				this.menu.box.html(ElArr.join(""));
+
+				this.menu.box.data("data",data);
+
+
+				const searchStr = flag==0 ? `<li id="menuSearch">
+								<div class="tree-search">
+									<label>
+											<input type="text" class="s-inp" placeholder="搜索...">
+											<span class="search-close">
+												<i class="fa fa-times"></i> 
+											</span>
+										</label>
+										<button class="s-btn j-search"><i class="fa fa-search-plus"></i></button>
+									</div></li>` : "";
+				this.menu.box.html(searchStr+ElArr.join(""));
 					
 				const id_first = this.findFistMenuID(data);
 				$(`.menuItem[echo-id=${id_first}]`).eq(0).click();
@@ -120,6 +134,35 @@ class Page{
 			
 		});
 	}
+
+	seachTree(key){
+
+
+		function filterJson(arr){
+
+			return arr.filter(val=>{
+
+					const {children:child,name} = val ;
+					const is_key = name.includes(key);
+
+					if(child.length){
+						const result = filterJson(child) ;
+							val.children = result ;
+						return result.length || is_key;
+					}else{
+						return is_key;
+					}
+
+			})
+
+		}
+
+		const data = this.menu.box.data("data");
+		const copy_data = JSON.parse(JSON.stringify(data));
+		
+		return filterJson(copy_data);
+
+	}	
 
 	handle(){
 
@@ -143,6 +186,41 @@ class Page{
 				}
 			}
 		})();
+
+		/*搜索*/
+
+		$("#menu").on("click",".j-search",function(){	
+
+			const par = $(this).parent()
+
+			const key = par.find(".s-inp").val().trim();
+			if(!key){
+					return ;
+			}
+			par.find(".search-close").show();
+
+			const data = _self.seachTree(key);
+			const ElArr = _self.menu.mapMenuJson(data,0);
+
+			$("#menuSearch").nextAll().remove();
+			$("#menu").append(ElArr.join(""));
+
+		});
+
+		$("#menu").on("click",".search-close",function(){
+
+				const data = _self.menu.box.data("data");
+				const ElArr = _self.menu.mapMenuJson(data,0);
+
+				$("#menuSearch").nextAll().remove();
+				$("#menu").append(ElArr.join(""));
+
+				$(this).hide();
+				const key = $(this).siblings(".s-inp").val("");
+
+		});
+		
+
 
 		/*收缩菜单*/
 		$("#slideFoot").click(function(){
