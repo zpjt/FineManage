@@ -5,7 +5,7 @@ import {api} from "api/userManage.js";
 
 class AddModal{
 
-
+	static type = "add";
 	constructor(config){
 
 		const {unit,modal,reloadPage} = config;
@@ -55,14 +55,55 @@ class AddModal{
 	}
 
 
-	initMD(){
-    
-    $(".userInfo").addClass("no-fill").val(null);
-		this.modal.show(this.$addMView);
+	initMD(type,obj){
+		const $box = $(".g-addpasswordInp");
+ 		$box.hide();
+		if(type=="edit"){
+			$("#addTit").html("修改密码");
+			AddModal.type = "edit";
+			$box.eq(1).show();
+			const {email,phone,user_id} = obj ;
+			$box.eq(1).attr("data-id",user_id);
+			$("#email").removeClass("no-fill").val(email)	;
+			$("#phone").removeClass("no-fill").val(phone)	;
+			$("#pwd_old").addClass("no-fill").val("")	;
+			$("#pwd_new").addClass("no-fill").val("")	;
 
+
+		
+		}else{
+		  	AddModal.type = "add"
+				$("#addTit").html("添加用户")
+			 	$box.eq(0).show();
+  			$(".userInfo").addClass("no-fill").val(null);
+		}
+		this.modal.show(this.$addMView);
 	}
 		
-	
+	editUser(obj){
+		api.checkPwd({user_id:obj.id,pwd:obj.pwd})
+		.then(res=>{
+				return res.code=="200" ? api.upUser(obj) : false ;
+		})
+		.then(res=>{
+
+			if(!res){
+				this.unit.tipToast("原密码不对！",2);
+				$("#pwd_old").addClass("no-fill");
+				return ;
+			}
+
+			if(res && res.code == "200"){ //true
+			  this.modal.close(this.$addMView);
+				this.unit.tipToast(res.data,1);
+				 this.reloadPage();
+
+			}else{
+				this.unit.tipToast("更新失败！",0);
+			}
+
+		})
+	}
 	addUser(obj){
 
 		api.checkName({name:obj.username})
@@ -112,22 +153,37 @@ class AddModal{
 
 
 
-			 if( _self.$addMView.find(".no-fill").length){
-					_self.unit.tipToast("请填写完整！",2);
+			 if( _self.$addMView.find(".no-fill:visible").length){
+					_self.unit.tipToast("请填写完整或检查是否有输入错误！",2);
 					return ;
 			 };
 
-			 const obj = {
-			 		roleIds:_self.roleComboBox.getValue().split(","),
-			 		orgId:_self.orgComboBox.getValue(),
+			 if(AddModal.type=="edit"){
+			 		const obj = {
+			 			id:$(".g-addpasswordInp").eq(1).attr("data-id"),
+			 		};
+				 $.map($(".userInfo:visible"),function(el){
+				 		obj[el.name] = el.value.trim();
+				 });
+
+				 _self.editUser(obj);
+
+			 }else{
+
+					 const obj = {
+					 		roleIds:_self.roleComboBox.getValue().split(","),
+					 		orgId:_self.orgComboBox.getValue(),
+					 }
+
+					 $.map($(".userInfo:visible"),function(el){
+					 		obj[el.name] = el.value.trim();
+					 });
+
+				
+					 _self.addUser(obj);
 			 }
 
-			 $.map($(".userInfo"),function(el){
-			 		obj[el.name] = el.value.trim();
-			 });
-
-		
-			 _self.addUser(obj);
+			 
 		
 		});
 	

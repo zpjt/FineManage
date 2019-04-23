@@ -56,7 +56,7 @@ class TableStyle extends EasyUITab{
 						field: 'optBtn',
 						title: '操作',
 						align:"left",
-						width: "30%",
+						width: "25%",
 						formatter: function(val, rowData,index) {
 							
 							return `
@@ -64,6 +64,10 @@ class TableStyle extends EasyUITab{
 											<div class="tab-opt s-btn s-Naira " node-sign="del">
 													<i class="fa fa-trash"></i>	
 													<span>删除</span>
+											</div>
+											<div class="tab-opt s-btn s-Naira " node-sign="password">
+													<i class="fa fa-key"></i>	
+													<span>密码修改</span>
 											</div>
 									</div>
 								`;

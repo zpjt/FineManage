@@ -92,7 +92,7 @@ class Login{
                             callback: 'callback',
                             success:function(){
                                 console.log("登录成功！");
-                                window.location.href= window.jsp_config.resourse + data.url;
+                                window.location.href= window.jsp_config.resourse + "index";
                             }
                          });
 

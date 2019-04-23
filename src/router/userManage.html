@@ -50,41 +50,57 @@
 
 			
 
-				<div class="sel-item">
-					<p class="s-title">科室:</p>
-					<div class="s-comboBox" id="org">
-					</div>
-				</div>
+				<div class="g-addpasswordInp">
 					<div class="sel-item">
-					<p class="s-title">角色:</p>
-					<div class="s-comboBox" id="character">
+						<p class="s-title">科室:</p>
+						<div class="s-comboBox" id="org">
+						</div>
+					</div>
+						<div class="sel-item">
+						<p class="s-title">角色:</p>
+						<div class="s-comboBox" id="character">
+						</div>
+					</div>
+					
+					<div class="sel-item">
+						<p class="s-title"><b class="inp-tip">*</b>用户名:</p>
+						<div class="s-inp-box">
+							<input type="text" autocomplete="new-password" id="name" name="username" class="s-inp normal-inp s-valid userInfo" placeholder="用户名..." >
+						</div>
+					</div>
+					
+					<div class="sel-item ">
+						<p class="s-title"><b class="inp-tip">*</b>密码:</p>
+						<div class="s-inp-box">
+							<input type="password" id="pwd" autocomplete="new-password" name="password" class="s-inp normal-inp s-valid userInfo" placeholder="密码..." >
+						</div>
 					</div>
 				</div>
 
-				<div class="sel-item">
-					<p class="s-title"><b class="inp-tip">*</b>用户名:</p>
-					<div class="s-inp-box">
-						<input type="text" id="name" name="username" class="s-inp normal-inp s-valid userInfo" placeholder="用户名..." >
+				<div class="g-addpasswordInp">
+					<div class="sel-item">
+						<p class="s-title"><b class="inp-tip">*</b>旧密码:</p>
+						<div class="s-inp-box">
+							<input type="password" id="pwd_old"  autocomplete="new-password" name="pwd" class="s-inp normal-inp s-valid userInfo" placeholder="密码..." >
+						</div>
 					</div>
+					<div class="sel-item">
+							<p class="s-title"><b class="inp-tip">*</b>新密码:</p>
+							<div class="s-inp-box">
+								<input type="password" id="pwd_new" autocomplete="new-password" name="password" class="s-inp normal-inp s-valid userInfo" placeholder="密码..." >
+							</div>
+						</div>
 				</div>
-				
-				<div class="sel-item">
-					<p class="s-title"><b class="inp-tip">*</b>密码:</p>
-					<div class="s-inp-box">
-						<input type="password" id="pwd" name="password" class="s-inp normal-inp s-valid userInfo" placeholder="密码..." >
-					</div>
-				</div>
-		
 					<div class="sel-item">
 					<p class="s-title"><b class="inp-tip">*</b>邮箱:</p>
 					<div class="s-inp-box">
-						<input type="email" id="email" name="email" class="s-inp normal-inp s-valid userInfo" placeholder="邮箱..." >
+						<input type="email" id="email" name="email" autocomplete="new-password" class="s-inp normal-inp s-valid userInfo" placeholder="邮箱..." >
 					</div>
 				</div>
 					<div class="sel-item">
 					<p class="s-title"><b class="inp-tip">*</b>手机号:</p>
 					<div class="s-inp-box">
-						<input type="number" id="phone" name="mobile" class="s-inp normal-inp s-valid userInfo" placeholder="手机号..." >
+						<input type="number" id="phone" name="mobile" autocomplete="new-password" class="s-inp normal-inp s-valid userInfo" placeholder="手机号..." >
 					</div>
 				</div>
 
@@ -97,70 +113,7 @@
 			</div>
 		</div>
 	</div>
-	<!--发布 -->
-	<div class="s-modal s-effect-2" id="issue-MView" style="width: 580px;">
-		<div class="m-content" >
-			<div class="m-title">
-				<span class="m-txt">发布</span>
-				<span class="m-close m-close-icon" >
-					<i  class="fa fa-times fa-lg"></i>
-				</span>
-			</div>
-			<div class="m-action">
-				<div class="issue-item">
-					<div class="item-status">
-						<b >报表显示时间:</b>
-						<span class="s-switch" echo-text="限制" sign="time">
-							<input type="checkbox" id="ableUser" checked="checked">
-							<label for="ableUser"  echo-text="不限制"></label>
-						</span>
-						<span class="time-inpbox calendar-time">
-							<span class="calendar-inp-icon"><i class="fa fa-calendar">&nbsp;</i></span>
-							<input type="text" id="viewShowTime"  read="read"  class="calendar-inpTxt s-inp" readonly="readonly" >
-						</span>
-					</div>
-					<div class="dataTime" id="calendarBox"> </div>
-				</div>
-				<div class="issue-item">
-					<div class="item-status">
-						<b>报表可见用户:</b>
-						<span class="s-switch" echo-text="限制" sign="org">
-							<input type="checkbox" id="ableUser" checked="checked" >
-							<label for="ableUser"  echo-text="不限制"></label>
-						</span>
-					</div>
-					<div class="org-box">
-						<div class="org-content" >
-							<div id="orgTree" class="org-item"></div>
-							<div class="org-item">
-								<div class="g-sel-title">
-									<i class="fa fa-users"></i>
-									<span>所选用户</span>
-								</div>
-								<ul class="g-sel" id="orgSel"></ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="issue-item">
-					<div class="item-status">
-						<b>发布状态:</b>
-						<span class="s-switch" echo-text="不发布" style="width: 100px">
-							<input type="checkbox" id="ableUser" checked="checked">
-							<label for="ableUser"  echo-text="发布"></label>
-						</span>
-					</div>
-				</div>
-				
-			</div>
-			<div class="m-foot">
-				<button class="s-btn s-spread" id="issueBtn">确 定</button>
-				<span>&nbsp;&nbsp;&nbsp;</span>
-				<button class="s-btn s-dashBtn m-close " >取 消</button>
-			</div>
-		</div>
-	</div>
+
 	<!-- 提示modal -->
 	<div class="s-modal s-tip s-effect-1" id="confirm-MView" >
 		<div class="m-content" >

@@ -12,7 +12,8 @@ class API {
 	
 
 	getUserList(){
-		return Promise.resolve($.get(URL+"getFineUserList"));
+		const  role_id =window.jsp_config.role_id;
+		return Promise.resolve($.get(URL+"getFineUserList",{role_id}));
 	}
 	
 	addUser(obj){
@@ -38,6 +39,19 @@ class API {
 	
 	getOrgList(){
 		return Promise.resolve($.get(URL+"getOrgList"));
+	}
+	checkPwd({user_id,pwd}){
+		return Promise.resolve($.post(URL+"checkPwd",{user_id,pwd}));
+	}
+	upUser(obj){
+			return Promise.resolve(
+				$.ajax({
+					method:"post",
+					url:URL+"upUser",
+					contentType:"application/json",
+					data:JSON.stringify(obj),
+				})
+			);
 	}
 }  
 

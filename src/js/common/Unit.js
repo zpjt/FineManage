@@ -227,7 +227,7 @@ class Search{
 
 		const str = `
 					<div class="input-box">
-						<input type="text" class="s-inp search-inp" id="searchInp" placeholder="搜索关键字....">
+						<input type="text" class="s-inp search-inp"  autocomplete="new-password" placeholder="搜索关键字....">
 						<button class="s-btn search-btn" id="searchBtn">
 							<span class="search-icon"></span>
 						</button>
@@ -708,7 +708,7 @@ class SCombobox {
 
     	const value = Array.isArray(selValue) ? selValue.join(","): selValue;
 
-		  const htmlType = (textarea || multiply) && `<textarea  class="s-textarea combo-text" placeholder="${prompt}" readOnly="readOnly"></textarea>` || `<input type="text" class="s-inp combo-text" placeholder="${prompt}" readOnly="readOnly"/>`;
+		  const htmlType = (textarea || multiply) && `<textarea  class="s-textarea combo-text" autocomplete="new-password" placeholder="${prompt}" readOnly="readOnly"></textarea>` || `<input type="text" autocomplete="new-password" class="s-inp combo-text" placeholder="${prompt}" readOnly="readOnly"/>`;
 
     	return `
 					${htmlType}
@@ -943,7 +943,7 @@ class Tree{
 		const str = this.renderOrgJson(data,0);
 		const searchStr = search  ? `<div class="tree-search">
 									<label >
-											<input type="text" class="s-inp" placeholder="搜索..." />
+											<input type="text" class="s-inp" autocomplete="new-password" placeholder="搜索..." />
 											<span class="search-close">
 												<i class="fa fa-times"></i> 
 											</span>
@@ -1600,7 +1600,7 @@ class SComboTree {
 
 		const {prompt,slideIcon,textarea} = this.config;
 
-		const inpStr = (textarea || checkbox) && `<textarea type="text" class="s-textarea combo-text" placeholder="${prompt}" readOnly="readOnly"/></textarea>` ||  `<input type="text" class="s-inp combo-text" placeholder="${prompt}" readOnly="readOnly"/>`;
+		const inpStr = (textarea || checkbox) && `<textarea type="text" autocomplete="off" class="s-textarea combo-text" placeholder="${prompt}" readOnly="readOnly"/></textarea>` ||  `<input type="text" autocomplete="off" class="s-inp combo-text" placeholder="${prompt}" readOnly="readOnly"/>`;
 
 		return `
 					${inpStr}

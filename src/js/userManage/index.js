@@ -89,13 +89,13 @@ class Page  {
 			$("#tabBox").on("click",".tab-opt",function(e){
 
 				const dataIndex = $(this).closest(".tabBtnBox").attr("echo-data");
-				const {user_id,user_name} = _self.table.$tab.datagrid("getData").rows[dataIndex];
+				const {user_id,user_name,email,phone} = _self.table.$tab.datagrid("getData").rows[dataIndex];
 				const type = $(this).attr("node-sign");
 
 				switch(type){
 
-					case "edit":{
-						
+					case "password":{
+									_self.addModal.initMD("edit",{email,phone,user_id});
 						break;
 					}
 					case "del":{
@@ -115,7 +115,7 @@ class Page  {
 				switch(sign){
 					
 					case"addUser":{
-						_self.addModal.initMD();
+						_self.addModal.initMD("init");
 						break;
 					}
 					case"delUser":{

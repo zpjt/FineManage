@@ -58,7 +58,7 @@ class Page{
 		const str = data.map((val,index)=>{
 
 				const {id,name} = val ;
-				return `<div class="user-item ${index === 0 ? "active" :""}" data-user_id="${id}"><i class="fa fa-user">&nbsp;</i><span>${name}</span></div>` ;
+				return `<div class="user-item ${id == window.jsp_config.user_id ? "active" :""}" data-user_id="${id}"><i class="fa fa-user">&nbsp;</i><span>${name}</span></div>` ;
 		});
 
 		$("#userList").html(str.join(""));
@@ -139,7 +139,7 @@ class Page{
 
 				if(fineDire.data && userList.data){
 
-						const firstUserId = userList.data[0].id ;
+						const firstUserId = window.jsp_config.user_id;
 
 						this.getUserSelArr(firstUserId);
 
@@ -205,6 +205,10 @@ class Page{
 			switch(type){
 
 				case"permission":{
+
+					if(!_self.hasData){
+						return ;
+					}
 						
 						const fileArr = [...$("#tabBox").find(".tree-checkbox1")].reduce((total,cur)=>{
 

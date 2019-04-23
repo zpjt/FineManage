@@ -46,7 +46,7 @@ $themeColor:#00a0e9;
 					color:$themeColor;
 			 }
 			 .search-normal-box{
-			 		height: 30px;
+			 		height: 38px;
 			 		vertical-align: middle;
 			 		display: flex;
 			 		position: relative;
@@ -61,14 +61,14 @@ $themeColor:#00a0e9;
 			 			color: white;
 			 			padding: 0 8px ;
 			 			border-radius: 0 4px   4px 0;
-		 			    line-height: 30px;
+		 			    line-height: 38px;
 			 		}
 			 		.close-search{
 			 			position: absolute;
 			 			color:red;
 			 			font-size: 18px;
 			 			right:50px;
-			 			top:4px;
+			 			top:8px;
 			 			display: none;
 			 			cursor: pointer;
 			 		}
