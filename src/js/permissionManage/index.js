@@ -31,13 +31,18 @@ class Page{
 		//搜索
 		this.search = new Search($("#u-search"),{
 			serachCallback:(result)=>{
+
+				$("#tab").treegrid("clearChecked");
 				this.table.loadTab(result,function(){
 						$("#tab").treegrid("expandAll");
 				});
 			},
 			closeCallback:(res)=>{
 				this.unit.openLoading();
-				this.table.loadTab(res);
+				$("#tab").treegrid("clearChecked");
+				const data = JSON.parse(JSON.stringify(res))
+				this.table.loadTab(data);
+					
 			},
 			keyField:"name",
 			judgeRelation:(val)=>{
@@ -79,6 +84,34 @@ class Page{
 
 	}
 
+	selDefault(arr,selData){
+
+		const child = arr.children;
+
+		arr.forEach(value=>{
+
+
+			 const oIndex =  selData.indexOf(value.id);
+			 const child = value.children;
+				if(oIndex>-1){
+						selData.splice(oIndex,1);
+						value.checkState = "checkState";
+            value.checked = true;
+				}
+
+			if(child.length){
+
+				this.selDefault(child,selData);
+			}
+
+
+		})
+
+		
+
+
+	}
+
 	getUserSelArr(userId){
 
 		const $easyUITab = $("#tab");
@@ -89,11 +122,32 @@ class Page{
 		this.unit.openLoading();
 		api.getFineDireByUser(userId).then(res=>{
 			if(res.data){
-					
+					const selData = res.data ;
 					$easyUITab.treegrid("clearChecked");
-					res.data.forEach(val=>{
-						!!$easyUITab.treegrid("find",val) && $easyUITab.treegrid("checkNode",val);
+					const treeData = JSON.parse(JSON.stringify(this.search.data),function(key,value){
+
+							if(value && (value.toString() == "[object Object]")){
+								 
+								 const oIndex =  selData.indexOf(value.id);
+
+								if(oIndex>-1){
+										selData.splice(oIndex,1);
+											value.checkState = "checked";
+                      value.checked = true;
+                      value._checked = true ;
+								}else{
+											value.checkState = "uncheck";
+								}
+
+									
+							}
+							return value ;
 					});
+
+					/*var treeData = JSON.parse(JSON.stringify(this.search.data));
+					this.selDefault(treeData,selData);*/
+
+					this.table.loadTab(treeData);
 			}
 			this.unit.closeLoading();
 		})
@@ -192,7 +246,7 @@ class Page{
 
 				$("#userList .user-item.active").removeClass("active");
 				$(this).addClass("active");
-
+				$("#u-search").removeClass("active-search")
 				_self.getUserSelArr(this.dataset.user_id);
 
 		});

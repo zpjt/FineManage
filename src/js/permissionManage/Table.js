@@ -24,8 +24,8 @@ class Table {
 				const user_id = userEl.dataset.user_id;	
    			api.setFileRole({"files":obj,user_id,status}).then(res=>{
 
-   					if(res && res.data){
-   							const str = is_single ? status==-1 && "删去" || "新增" :"批量设置";
+   					if(res ){
+   							const str =status==-1 && "删去" || "新增" ;
 								res.data ? this.unit.tipToast(`${str+res.data}条权限成功！`,1) : this.unit.tipToast(`清除所有设置！`,1);
    					
    					}else{

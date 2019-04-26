@@ -14,6 +14,7 @@ class TableStyle extends EasyUITab{
     }
 
 		tabConfig(idField){
+			const {user_id} = window.jsp_config;
 			return {
 				idField:idField,
 				tabId:"#tabBox",
@@ -59,10 +60,12 @@ class TableStyle extends EasyUITab{
 						width: "25%",
 						formatter: function(val, rowData,index) {
 							
+							const isSelf = rowData.user_id == user_id;	
+
 							return `
 									<div class="tabBtnBox" echo-data='${index}' >
-											<div class="tab-opt s-btn s-Naira " node-sign="del">
-													<i class="fa fa-trash"></i>	
+											<div class="tab-opt s-btn ${isSelf ? "disabled" :"s-Naira"} " node-sign="del">
+													${!isSelf ? '<i class="fa fa-trash"></i>'	:""}
 													<span>删除</span>
 											</div>
 											<div class="tab-opt s-btn s-Naira " node-sign="password">

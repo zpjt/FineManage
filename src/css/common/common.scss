@@ -346,10 +346,10 @@ $border:#E9E9E9;
 
 }
 /* 禁用 */
-.disabled{
+.s-btn.disabled{
 	pointer-events: none;
-   // color: gray;
-   // border-color: gray;
+  color: gray;
+  border: 1px solid gray;
 }
 
 /* 清除幽灵空白节点 */
