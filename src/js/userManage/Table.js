@@ -20,6 +20,11 @@ class TableStyle extends EasyUITab{
 				tabId:"#tabBox",
 				frozenColumns: this.frozenColumns(idField,{
 					checkbox: true ,
+					disableCheck:function(rowData){
+
+							return rowData.user_id == user_id;
+
+					}
 				}),
 				columns: [
 					[{

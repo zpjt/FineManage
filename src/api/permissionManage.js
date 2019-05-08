@@ -2,7 +2,7 @@
 import "./index.js";
 
 const control = "Perm/";
-const {baseUrl,user_id} = window.jsp_config;
+const {baseUrl} = window.jsp_config;
 const URL= baseUrl+control;
 
 class API {
@@ -15,7 +15,7 @@ class API {
 
 	getUserList(obj){
 		const  role_id =window.jsp_config.role_id;
-		return Promise.resolve($.get(URL+"getUserList",{role_id,user_id}));
+		return Promise.resolve($.get(URL+"getUserList",{role_id}));
 	}
 	getFineDireByUser(user_id){
 		return Promise.resolve($.get(URL+"getFineDireByUser",{user_id}));

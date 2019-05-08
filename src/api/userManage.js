@@ -1,7 +1,7 @@
 
 import "./index.js";
 
-const {baseUrl} = window.jsp_config;
+const {baseUrl,user_id} = window.jsp_config;
 const control = "Perm/";
 
 const URL= baseUrl+control;
@@ -13,7 +13,7 @@ class API {
 
 	getUserList(){
 		const  role_id =window.jsp_config.role_id;
-		return Promise.resolve($.get(URL+"getFineUserList",{role_id}));
+		return Promise.resolve($.get(URL+"getFineUserList",{role_id,user_id}));
 	}
 	
 	addUser(obj){
@@ -34,11 +34,13 @@ class API {
 
 	}	
 	getRoleList(){
-		return Promise.resolve($.get(URL+"getRoleList"));
+		const  role_id =window.jsp_config.role_id;
+		return Promise.resolve($.get(URL+"getRoleList",{role_id,user_id}));
 	}
 	
 	getOrgList(){
-		return Promise.resolve($.get(URL+"getOrgList"));
+			const  role_id =window.jsp_config.role_id;
+		return Promise.resolve($.get(URL+"getOrgList",{user_id,role_id}));
 	}
 	checkPwd({user_id,pwd}){
 		return Promise.resolve($.post(URL+"checkPwd",{user_id,pwd}));

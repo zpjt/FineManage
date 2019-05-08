@@ -78,7 +78,7 @@ class EasyUITab {
 								const  status = disableCheck && disableCheck(rowData) ? "dis-check" :"checkSingle" ;
 
 								const disable = status === "dis-check" && "disabled" || "" ;
-								const tip = status === "dis-check" && "禁止删除,该文件夹里包含内容！" || "" ;
+								const tip = status === "dis-check" && "禁止删除！" || "" ;
 
 
 								return  `<div class="tab-checkbox">
