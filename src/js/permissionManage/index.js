@@ -10,6 +10,7 @@ import {Table} from "./Table.js";
  */
 class Page{
 
+	static selUserId = "";
 	constructor(){
 
 		this.btnBox = $("#btnBox");
@@ -28,20 +29,32 @@ class Page{
 			unit:this.unit,
 		});	
 
+
 		//搜索
 		this.search = new Search($("#u-search"),{
 			serachCallback:(result)=>{
 
 				$("#tab").treegrid("clearChecked");
-				this.table.loadTab(result,function(){
-						$("#tab").treegrid("expandAll");
-				});
+				const userId = Page.selUserId;
+				api.getFineDireByUser(userId).then(res=>{
+						if(res.data){
+								const selData = res.data ;
+								$("#optBtn").hide();
+								this.selDefault(result,selData);
+								this.table.loadTab(result,function(){
+										$("#tab").treegrid("expandAll");
+								});
+						}
+				})
+
+			
+
+
 			},
 			closeCallback:(res)=>{
-				this.unit.openLoading();
-				$("#tab").treegrid("clearChecked");
-				const data = JSON.parse(JSON.stringify(res))
-				this.table.loadTab(data);
+				const userId = Page.selUserId;
+				$("#optBtn").show();
+				this.getUserSelArr(userId);
 					
 			},
 			keyField:"name",
@@ -63,7 +76,7 @@ class Page{
 		const str = data.map((val,index)=>{
 
 				const {id,name} = val ;
-				return `<div class="user-item ${id == window.jsp_config.user_id ? "active" :""}" data-user_id="${id}"><i class="fa fa-user">&nbsp;</i><span>${name}</span></div>` ;
+				return `<div class="user-item ${id == Page.selUserId ? "active" :""}" data-user_id="${id}"><i class="fa fa-user">&nbsp;</i><span>${name}</span></div>` ;
 		});
 
 		$("#userList").html(str.join(""));
@@ -144,9 +157,6 @@ class Page{
 							return value ;
 					});
 
-					/*var treeData = JSON.parse(JSON.stringify(this.search.data));
-					this.selDefault(treeData,selData);*/
-
 					this.table.loadTab(treeData);
 			}
 			this.unit.closeLoading();
@@ -186,16 +196,17 @@ class Page{
 					return ;
 			
 				}else{
+						const firstUserId = window.jsp_config.user_id;
+						Page.selUserId = firstUserId ;
 						this.userListdata = userList.data ;
 						this.renderUserList(userList.data);
 				};
 
 
 				if(fineDire.data && userList.data){
+						
 
-						const firstUserId = window.jsp_config.user_id;
-
-						this.getUserSelArr(firstUserId);
+						this.getUserSelArr(Page.selUserId);
 
 				}
 
@@ -246,8 +257,9 @@ class Page{
 
 				$("#userList .user-item.active").removeClass("active");
 				$(this).addClass("active");
-				$("#u-search").removeClass("active-search")
-				_self.getUserSelArr(this.dataset.user_id);
+				$("#u-search").removeClass("active-search");
+				Page.selUserId = this.dataset.user_id ;
+				_self.getUserSelArr(Page.selUserId);
 
 		});
 
