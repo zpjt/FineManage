@@ -172,7 +172,7 @@ class Page{
 				const [fineDire,userList] = res ; 
 				
 				if(!fineDire || !fineDire.data){
-						this.unit.tipToast("获取目录失败！",0);
+						this.unit.tipToast("该用户下没有分配目录！",0);
 						this.unit.closeLoading();
 				}else{
 								fineDire.data.children.forEach(function(val){
