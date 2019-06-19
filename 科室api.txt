@@ -1,0 +1,42 @@
+新增科室：
+http://localhost:8080/finemanage/Perm/addOrg
+参数： {"name":"demo"}
+返回值：
+{
+    "code": 4000,
+    "message": "科室已存在"
+}
+
+{
+    "code": 200,
+    "data": {
+        "id": 286,
+        "name": "demo2"
+    },
+    "message": "SUCCESS"
+}
+修改科室：
+http://localhost:8080/finemanage/Perm/updataOrg
+
+参数：{"id":283,"name":"demo2"}
+返回值：
+{
+    "code": 4000,
+    "message": "科室已存在"
+}
+
+{
+    "code": 200,
+    "data": {
+        "id": 286,
+        "name": "demo2"
+    },
+    "message": "SUCCESS"
+}
+删除科室：（删除前提示：删除科室会删除该科室下所有用户）
+http://localhost:8080/finemanage/Perm/delOrg
+参数：ids=282,283
+返回值：{
+    "code": 200,
+    "message": "SUCCESS"
+}

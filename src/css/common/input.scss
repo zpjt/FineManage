@@ -297,6 +297,60 @@ $borderWidth:1px;
 
 		}
 	}
+	.g-edit{
+		.item-opt{
+			display: block;
+		}
+	}
+	.item-opt{
+		position: absolute;
+		right: 6px;
+		top:1px;
+		display: none;
+		.s-btn{
+			background: white;
+			color:$themeColor;
+			padding:4px 0px;
+			&:hover{
+				background: $themeColor;
+				border-radius: 20px;
+				color:white;
+			}
+		}
+
+	}
+	.combo-edit{
+		display: flex;
+		justify-content: space-between;
+		padding-bottom: 10px;
+
+		.s-inp{
+			width:180px;
+			height: 32px;
+			border:1px solid $themeColor;
+		}
+		.j-edit{
+			background: white;
+			color:$themeColor;
+
+		}
+		.j-add{
+			padding:8px;
+			background: $themeColor;
+			border-radius: 4px 0 0 4px;
+		
+		}
+	}
+	.update-inp{
+		width: 200px;
+		border:1px solid #ececec;
+		height: 28px;
+		background: white;
+		left:0;
+		top:0;
+		position: absolute;
+	}	
+
 	.combo-inp{
 		border-radius:4px;
 		box-sizing:border-box;
@@ -352,6 +406,7 @@ $borderWidth:1px;
 		}
 		.drop-item {
 			padding:4px 8px;
+			position: relative;
 		}
 		.drop-item.active {
 			background-color: #aee6ff;
@@ -370,6 +425,7 @@ $borderWidth:1px;
 				}
 				.s-inp{
 					width: 100%;
+					height: 30px;
 				}
 				.search-close{
 					position: absolute;

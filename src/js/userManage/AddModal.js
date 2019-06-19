@@ -31,7 +31,8 @@ class AddModal{
 					 		data:res.data,
 					 		textField:"name",
 					 		width:300,
-					 		multiply:true,
+					 		multiply:false,
+					 	
 					 	})
 					}else{
 						this.unit.tipToast("获取不到角色列表！","0");
@@ -41,10 +42,63 @@ class AddModal{
 			api.getOrgList().then(res=>{
 
 					if(res && res.data){
+						const _self = this;
 	 					this.orgComboBox = new SCombobox($("#org"),{
 					 		data:res.data,
 					 		textField:"name",
 					 		width:300,
+					 		ableCustom:true,
+				 			addFn:function(text){
+					 			return	api.addOrg({name:text}).then(res=>{
+
+					 				if(res.code==200){
+
+					 					_self.unit.tipToast("新增科室成功！","1");
+					 					return res.data.id;
+					 				}else{
+
+					 					_self.unit.tipToast(res.message,"2");
+
+					 					return "";
+					 				}
+
+
+					 			})	
+					 		},
+					 		delFn:function(id){
+					 			return	api.delOrg(id).then(res=>{
+
+					 					if(res.code==200){
+
+					 						_self.unit.tipToast("删除科室成功！",1);
+
+					 						return true ;
+					 					}else{
+
+					 						_self.unit.tipToast("删除科室失败！",0);
+					 						return false;
+					 					}	
+
+
+					 			})	
+					 		},
+					 		updateFn:function(name,id){
+					 				return api.updataOrg({name,id}).then(res=>{
+
+					 				if(res.code==200){
+
+					 					_self.unit.tipToast("修改科室成功",1);
+					 					return res.data.name;
+					 				}else{
+
+					 					_self.unit.tipToast(res.message,2);
+
+					 					return "";
+					 				}
+
+
+					 			})	
+					 		}
 					 	})
 					}else{
 						this.unit.tipToast("获取不到科室列表！","0");

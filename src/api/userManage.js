@@ -55,6 +55,35 @@ class API {
 				})
 			);
 	}
+	addOrg(obj){
+			return Promise.resolve(
+				$.ajax({
+					method:"post",
+					url:URL+"addOrg",
+					contentType:"application/json",
+					data:JSON.stringify(obj),
+				})
+			);
+	}
+	updataOrg(obj){
+			return Promise.resolve(
+				$.ajax({
+					method:"post",
+					url:URL+"updataOrg",
+					contentType:"application/json",
+					data:JSON.stringify(obj),
+				})
+			);
+	}
+	delOrg(ids){
+			return Promise.resolve(
+				$.ajax({
+					method:"post",
+					url:URL+"delOrg",
+					data:{ids},
+				})
+			);
+	}
 }  
 
 

@@ -535,6 +535,7 @@ class SCombobox {
 			 clickCallback:function(){},
 			 width:260,
 			 textarea:false,
+			 ableCustom:false,//能自定义数据的增加和删除
 		}
 
 	
@@ -580,17 +581,25 @@ class SCombobox {
 
 	initRender(){
 
-		const {validCombo} = this.config;
+		const {validCombo,ableCustom} = this.config;
 
 		const is_valid = validCombo && "no-fill" || "" ;
 
+		const ableCustomStr = ableCustom ? `<div class="combo-edit">
+																<label >
 
+																	<button class="s-btn j-add j-optBtn" name="add">添加</button><input type="text" class="s-inp" autocomplete="new-password" placeholder="输入新增名称..." />
+															  
+																</label>
+																<button class="s-btn j-edit j-optBtn" name="edit">编辑</button>
+															</div>` :"" ;
 
 		return `
 				<div class="combo-inp ${is_valid}" >
 					${this.renderInpBox()}
 				</div>
 				<div class="combo-drop ">
+					${ableCustomStr}
 					<ul class="drop-ul">
 						${this.renderDrop().join("")}
 					</ul>
@@ -599,6 +608,10 @@ class SCombobox {
 	}
 
 	setValue(values,$el=this.box){
+
+		$el.find(".drop-ul").removeClass("g-edit");
+
+		$el.find(".drop-ul").find(".update-inp").remove();
 
 	   const $drop = $el.children(".combo-drop").children("ul");
 
@@ -720,18 +733,49 @@ class SCombobox {
 
 	renderDrop(values=this.selValue){
 
-		const {data,dropIcon,textField,idField,dropFormatter} = this.config;
+		const {data,dropIcon,textField,idField,dropFormatter,ableCustom} = this.config;
+
+		const optBtnStr = ableCustom ? `<span class="item-opt"><button class="j-optBtn s-btn" name="del"><i class="fa fa-minus"></i></button></span>` :"";
 		return data.map((val,index)=>{
 
 			const id = val[idField];
 			const active = values.includes(id) && "active" || "" ;
 
 			return `<li class="drop-item ${active}" echo-id="${id}">
-						<span class="${dropIcon}"></span>
-						<b class="item-txt">${ dropFormatter && dropFormatter(val) || val[textField] }</b>
+						<span class="txt-wrap"><span class="${dropIcon}">&nbsp;</span><b class="item-txt">${ dropFormatter && dropFormatter(val) || val[textField] }</b></span>
+						${optBtnStr}
 					</li>`
 
 		});
+	}
+
+	updateItem(val,$this){
+
+					if(this.config.updateFn){
+
+								const par = $this.closest(".drop-item");
+								const id = par.attr("echo-id");
+
+							
+								this.config.updateFn(val,id).then(res=>{
+
+										if(res){
+												par.find(".item-txt").html(val)
+												par.find(".update-inp").remove();
+												const selecteId = this.box.find(".combo-value").val() ;
+
+												if(selecteId == id){
+
+														this.box.find(".combo-text").val(val);
+
+												}
+										}
+
+								});
+
+					}
+
+					
 	}
 
 	handle(){
@@ -743,8 +787,25 @@ class SCombobox {
 
 
 			e.stopPropagation();
-
 			const $this= $(this);
+
+			if(self.box.find(".drop-ul").hasClass("g-edit")  ){
+
+					const item = $this;
+				
+				if(!item.find(".update-inp").length){
+						self.box.find(".update-inp").remove();
+					const text = item.find(".item-txt").text();
+					item.append(`<input type="text" class="s-inp update-inp" value="${text}" />`)
+				
+
+				}
+
+				return ;
+
+			}
+
+		
 			let status = null ; // true 增加，false移除
 			const is_self = $this.hasClass("active");
 
@@ -792,9 +853,132 @@ class SCombobox {
 
 		});
 
+		this.box.on("click",".combo-edit",function(e){
+			e.stopPropagation();
+		});
+
+		this.box.on("click",".item-opt",function(e){
+			e.stopPropagation();
+		});
+
+		
+
+		this.box.on("click",".update-inp",function(e){
+
+			e.stopPropagation();
+
+			
+
+		});
+			this.box.on("keydown",".update-inp",function(e){
+
+				if(e.keyCode == 13){
+					var $this= $(this);
+					const val = $this.val().trim();
+
+					if(!val){
+						return ;
+					}
+					self.updateItem(val,$this);
+				}
+
+			
+
+			
+
+		});
+
+		this.box.on("click",".j-optBtn",function(e){
+
+			const $this =  $(this);
+
+				const type =this.name;
+
+				switch(type){
+
+					case "add":
+
+						const addText = $this.siblings(".s-inp").val().trim();
+
+						if(!addText){
+							return ;
+						}
+
+						if(self.config.addFn){
+
+							 self.config.addFn(addText).then(res=>{
+
+							 		if(res){
+
+							 			const itemStr = `<li class="drop-item " echo-id="${res}">
+																				<span class="txt-wrap"><span class="${self.config.dropIcon}">&nbsp;</span><b class="item-txt">${addText}</b></span>
+																				<span class="item-opt"><button class="j-optBtn s-btn" name="del"><i class="fa fa-minus"></i></button></span>
+																			</li>`
+							 				self.box.find(".drop-ul").append(itemStr);
+
+							 				const {idField,textField} = self.config;
+
+							 				self.config.data.push({[idField]:res,[textField]:addText});
+
+							 		}
+
+
+							 })	
+
+						}
+
+						 	
+
+						break;
+					case "edit":
+
+						self.box.find(".drop-ul").toggleClass("g-edit");
+						self.box.find(".update-inp").remove();
+
+						break;
+
+					case "del":
+
+						
+
+						if(self.config.delFn){
+									const par = $this.closest(".drop-item");
+									const id = par.attr("echo-id");
+									
+
+									self.config.delFn(id).then(res=>{
+
+											if(res){
+												par.remove();
+												const selecteId = self.box.find(".combo-value").val() ;
+
+												if(selecteId == id){
+
+														self.clearValue();
+
+												}
+											}
+
+									});
+
+						}
+
+						break;
+
+					
+
+				}
+
+			
+
+		});
+
 
 
 	}
+
+
+
 
 	showDown(par,callback){
 	

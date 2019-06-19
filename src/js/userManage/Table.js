@@ -32,6 +32,11 @@ class TableStyle extends EasyUITab{
 						title: '用户名',
 						width: "10%",
 					}, 
+					{
+						field: 'true_name',
+						title: '真实姓名',
+						width: "10%",
+					}, 
 					
 					{
 						field: 'org_name',
@@ -62,7 +67,7 @@ class TableStyle extends EasyUITab{
 						field: 'optBtn',
 						title: '操作',
 						align:"left",
-						width: "25%",
+						width: "16%",
 						formatter: function(val, rowData,index) {
 							
 							const isSelf = rowData.user_id == user_id;	
