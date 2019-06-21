@@ -73,7 +73,7 @@ $duration:.3s;
 	
 	.m-action{
 		padding:12px;
-		min-height: 80px;
+	//	min-height: 0px;
 	}
 	.tip-txt{
 		padding:10px;
@@ -124,4 +124,53 @@ $duration:.3s;
 		transform: rotateX(-70deg);
 		opacity:0;
 	}
+}
+
+.m-confirm{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top:0;
+	left: 0;
+	background: rgba(69,72,84,.5);
+	z-index: 100;
+display: none;
+		.m-content{
+			background: white;
+
+			width: 400px;
+			margin:6px auto;
+		}
+
+	.tip-txt{
+		color:$themeColor;
+		text-align: center;
+	}	
+	.m-action{
+		padding:16px 0;
+	}
+
+.m-title{
+		border-bottom: 1px solid $themeColor;
+		padding:6px;
+			color:$themeColor;
+	}
+
+.m-foot{
+		height:$height;
+		text-align:right;
+		padding:0 10px;
+		.m-close{
+			color: $themeColor;
+	    	background: none;
+		}	
+		.s-btn{
+			padding:8px 24px;
+		}	
+		#tipConfirm{
+		
+			background: $themeColor;
+		}
+	}
+
 }

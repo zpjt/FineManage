@@ -588,10 +588,10 @@ class SCombobox {
 		const ableCustomStr = ableCustom ? `<div class="combo-edit">
 																<label >
 
-																	<button class="s-btn j-add j-optBtn" name="add">添加</button><input type="text" class="s-inp" autocomplete="new-password" placeholder="输入新增名称..." />
+																	<button class="s-btn j-add j-optBtn" name="add">添加</button><input type="text" class="addItem-inp s-inp" autocomplete="new-password" placeholder="输入新增名称..." />
 															  
 																</label>
-																<button class="s-btn j-edit j-optBtn" name="edit">编辑</button>
+																<button class="s-btn j-edit j-optBtn" name="edit"></button>
 															</div>` :"" ;
 
 		return `
@@ -735,7 +735,7 @@ class SCombobox {
 
 		const {data,dropIcon,textField,idField,dropFormatter,ableCustom} = this.config;
 
-		const optBtnStr = ableCustom ? `<span class="item-opt"><button class="j-optBtn s-btn" name="del"><i class="fa fa-minus"></i></button></span>` :"";
+		const optBtnStr = ableCustom ? `<span class="item-opt"><button class="j-optBtn s-btn" name="del"><i class="fa fa-times"></i></button></span>` :"";
 		return data.map((val,index)=>{
 
 			const id = val[idField];
@@ -751,18 +751,24 @@ class SCombobox {
 
 	updateItem(val,$this){
 
-					if(this.config.updateFn){
+					const {idField,textField,updateFn,data} = this.config;
+					if(updateFn){
 
 								const par = $this.closest(".drop-item");
 								const id = par.attr("echo-id");
 
+
 							
-								this.config.updateFn(val,id).then(res=>{
+								updateFn(val,id).then(res=>{
 
 										if(res){
 												par.find(".item-txt").html(val)
 												par.find(".update-inp").remove();
 												const selecteId = this.box.find(".combo-value").val() ;
+
+												const node = data.find(val=>val[idField]==id);
+
+												node[textField] = val ;
 
 												if(selecteId == id){
 
@@ -912,13 +918,15 @@ class SCombobox {
 
 							 			const itemStr = `<li class="drop-item " echo-id="${res}">
 																				<span class="txt-wrap"><span class="${self.config.dropIcon}">&nbsp;</span><b class="item-txt">${addText}</b></span>
-																				<span class="item-opt"><button class="j-optBtn s-btn" name="del"><i class="fa fa-minus"></i></button></span>
+																				<span class="item-opt"><button class="j-optBtn s-btn" name="del"><i class="fa fa-times"></i></button></span>
 																			</li>`
 							 				self.box.find(".drop-ul").append(itemStr);
 
 							 				const {idField,textField} = self.config;
 
 							 				self.config.data.push({[idField]:res,[textField]:addText});
+
+							 				self.box.find(".addItem-inp").val("");
 
 							 		}
 
@@ -935,6 +943,8 @@ class SCombobox {
 						self.box.find(".drop-ul").toggleClass("g-edit");
 						self.box.find(".update-inp").remove();
 
+						$this.toggleClass("m-edit-txt");
+
 						break;
 
 					case "del":
@@ -942,12 +952,14 @@ class SCombobox {
 						
 
 						if(self.config.delFn){
-									const par = $this.closest(".drop-item");
-									const id = par.attr("echo-id");
-									
 
-									self.config.delFn(id).then(res=>{
+							const par = $this.closest(".drop-item");
+							const id = par.attr("echo-id");
 
+								self.config.delFn(id,function(res){
+
+
+								
 											if(res){
 												par.remove();
 												const selecteId = self.box.find(".combo-value").val() ;
@@ -959,7 +971,10 @@ class SCombobox {
 												}
 											}
 
-									});
+
+								})
+
+								
 
 						}
 

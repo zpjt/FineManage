@@ -62,6 +62,7 @@ class Page  {
 			this.getUserList();
 
 			/*判断是否为普通用户来显示操作按钮*/
+			//3101, 3102, 3103
 			window.jsp_config.role_id == 3103 && $("#btnBox").hide() || $("#btnBox").show()
 		
 

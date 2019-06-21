@@ -10,7 +10,7 @@ $borderWidth:1px;
 /* 输入框 */
 .s-inp{
 /* 	height: 100%; */
-	height:38px;
+	height:34px;
 	text-indent:1em;
 	border:0;
 	outline:0;
@@ -34,7 +34,7 @@ $borderWidth:1px;
 }
    
 .s-inp-box{
-	height:$height;
+	//height:$height;
 	position: relative;
 	box-sizing:border-box;
 	&:hover{
@@ -288,9 +288,12 @@ $borderWidth:1px;
 
 /* 下拉框 */
 .s-comboBox{
-	$height:40px;
+	$height:38px;
 	position: relative;
 	cursor: pointer;
+	.fa-circle{
+		font-size: 12px;
+	}
 	&:hover{
 		.combo-inp{
 			border-color: $themeColor;
@@ -309,10 +312,10 @@ $borderWidth:1px;
 		display: none;
 		.s-btn{
 			background: white;
-			color:$themeColor;
+			color:red;
 			padding:4px 0px;
 			&:hover{
-				background: $themeColor;
+				background: red;
 				border-radius: 20px;
 				color:white;
 			}
@@ -332,7 +335,15 @@ $borderWidth:1px;
 		.j-edit{
 			background: white;
 			color:$themeColor;
+			&:before{
+				content:"编辑"
+			}
 
+		}
+		.m-edit-txt{
+			&:before{
+				content:"取消"
+			}
 		}
 		.j-add{
 			padding:8px;
@@ -357,6 +368,7 @@ $borderWidth:1px;
 		border: solid $borderWidth #ececec;
 		height:$height;
 		line-height:$height - 4px;
+		padding: 1px 0 ;
 		.combo-text{
 			width: calc(100% - 30px);
 			text-indent:1em;

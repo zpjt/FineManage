@@ -47,7 +47,7 @@ class AddModal{
 					 		data:res.data,
 					 		textField:"name",
 					 		width:300,
-					 		ableCustom:true,
+					 		ableCustom:window.jsp_config.role_id == 3101,// 3101为系统管理员
 				 			addFn:function(text){
 					 			return	api.addOrg({name:text}).then(res=>{
 
@@ -65,22 +65,45 @@ class AddModal{
 
 					 			})	
 					 		},
-					 		delFn:function(id){
-					 			return	api.delOrg(id).then(res=>{
 
-					 					if(res.code==200){
-
-					 						_self.unit.tipToast("删除科室成功！",1);
-
-					 						return true ;
-					 					}else{
-
-					 						_self.unit.tipToast("删除科室失败！",0);
-					 						return false;
-					 					}	
+					 		delFn:function(id,callback){
 
 
-					 			})	
+								$("#gConfirm").show();
+
+								$("#tipConfirm")[0].onclick=function(){
+										$("#gConfirm").hide();
+										api.delOrg(id).then(res=>{
+
+
+
+							 					if(res.code==200){
+
+							 						_self.unit.tipToast("删除科室成功！",1);
+
+							 						 _self.reloadPage();
+
+							 						callback(true);
+							 					}else{
+
+							 						_self.unit.tipToast("删除科室失败！",0);
+							 						callback(false);
+							 					}	
+						 				});	
+
+
+								}
+
+
+
+
+
+				
+
+									
+					 		
+
+					 			
 					 		},
 					 		updateFn:function(name,id){
 					 				return api.updataOrg({name,id}).then(res=>{
@@ -186,6 +209,12 @@ class AddModal{
 	handle(){
 
 		const _self = this ;
+
+		$("#tipClose").click(function(){
+
+				$("#gConfirm").hide();
+
+		});
 
 
 	  // 点击模态框空白处收缩下拉框
