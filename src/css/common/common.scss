@@ -1,5 +1,6 @@
-$themeColor:#00a0e9;
+$themeColor:#6f77fc;
 $border:#E9E9E9;
+	$active:#dcdcff;
 .page{
 	padding:20px 20px;
 	overflow:hidden;
@@ -59,7 +60,7 @@ $border:#E9E9E9;
 
 	.search-res{
 	    padding: 8px 0;
-	    border-bottom: 1px solid #00a0e9;
+	    border-bottom: 1px solid $themeColor;
 	    text-indent: 1em;
 	}
 	
@@ -258,13 +259,16 @@ $border:#E9E9E9;
 	.tip-item{
 		position: relative;
 	    border-radius: 6px;
-	 
-	    background: #e7f8f8e8;
+	 background-color: #ffffff;
+	 box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.26);
 	    margin: 12px 0;
 	    overflow: hidden;
 	    width: 270px;
 	    height: 110px;
 	   
+	}
+	.tip-type{
+		vertical-align: 3px;
 	}
 	.tip-txt{
 	   padding: 8px;

@@ -42,18 +42,7 @@ class Page{
 			})
 			$("#roleOpt").html(str.join(""));
 			const _this = this;
-			$("#roleOpt").on("click","li",function(){
-        const $this =$(this);
-        const id =$this.attr("data-id");
-
-        $this.addClass("active-role").siblings().removeClass("active-role");
-
-       window.jsp_config.role_id = id ;
-
-       	_this.renderMenu(1);
-
-
-			});
+			
 
 
 	}
@@ -226,8 +215,20 @@ class Page{
 		$("#slideFoot").click(function(){
 			closeFun();
 		});
-	
+		//修改角色	
+		$("#roleOpt").on("click","li",function(){
+        const $this =$(this);
+        const id =$this.attr("data-id");
 
+        $this.addClass("active-role").siblings().removeClass("active-role");
+
+       window.jsp_config.role_id = id ;
+
+				const status =		Menu.status == "view" ? 0 : 1;
+       	_self.renderMenu(status);
+
+
+			});
 		/*系统操作*/
 		$("#userOpt").on("click","li",function(){
 
@@ -248,22 +249,26 @@ class Page{
 		});
 
 		/*切换界面,防止快速的连续点击，加了函数防抖*/
-		$("#changBox").click(
-		 _self.throttle(function(){
+		$("#cogs").on("click","li",function(){
 		 	const $this = $(this);
-		 	if($this.hasClass("active-view")){
-		 				$("#content").addClass("no-head");
+
+		 	if($this.hasClass("active-role")){
+		 			return ;
+		 	}
+
+		 	$this.addClass("active-role").siblings().removeClass("active-role");
+		 	if($this.attr("key")=="view"){
+		
 						_self.renderMenu(0);
 						$this.removeClass("active-view");
 						Menu.status = "view";
 		 	}else{
-		 			$("#content").removeClass("no-head");
+
 						_self.renderMenu(1);
 						$(this).addClass("active-view");
 						Menu.status = "menu";
 		 	}
-		 })
-		);
+		 });
 
 	
 

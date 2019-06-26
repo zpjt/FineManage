@@ -1,7 +1,7 @@
 @import "./common/search.scss";
 
-$themeColor:#00a0e9;
-
+$themeColor:#6f77fc;
+$active:#dcdcff;
 
 .page{
 	display: flex;
@@ -14,18 +14,15 @@ $themeColor:#00a0e9;
 		background: white;
 		padding: 20px;
 		box-sizing: border-box;
+		background-color: #ffffff;
+	box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.16);
 	}
 }
-.input-box{
-	border: 1px solid $themeColor;
-}
+
 .tab-opt{
 	cursor: pointer;
 }
-.search-wrap .search-icon{
-	top:-3px;
-	left: 2px;
-}
+
 #userBox{
 	width: 28%;
 		@at-root{
@@ -38,7 +35,7 @@ $themeColor:#00a0e9;
 				padding:6px 8px;
 				cursor: pointer;
 				&:hover{
-					background: #d9f2f4;
+					background:$active;
 				}
 				
 			 }
@@ -46,7 +43,7 @@ $themeColor:#00a0e9;
 					color:$themeColor;
 			 }
 			 .search-normal-box{
-			 		height: 38px;
+			 		height: 34px;
 			 		vertical-align: middle;
 			 		display: flex;
 			 		position: relative;

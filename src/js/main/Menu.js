@@ -53,7 +53,7 @@ class Menu{
 		return (`
 			<li class="par_li_${lev} par_li" >
 				<div class="menuItem par-item " data-url="${url}" lev="${lev}" echo-id="${id}">
-					${indent}<i class="fa ${icon}"></i><span class="icon-wrap"><span class="menu-name">&nbsp;${name}</span><span class="slide-icon"><i class="fa fa-chevron-down  "></i></span></span>
+					${indent}<i class="fa ${icon} fa-lg"></i><span class="icon-wrap"><span class="menu-name">&nbsp;${name}</span><span class="slide-icon"><i class="fa fa-chevron-up  "></i></span></span>
 				</div>
 				<ul class="par-menu">${child.join("")}</ul>
 		</li>
@@ -100,14 +100,14 @@ class Menu{
 			const $this = $(this);
 			const $icon = $this.children(".fa");
 			const $childEl = $this.parent().parent().siblings(".par-menu");
-			const is_down = $icon.hasClass("fa-chevron-down");
+			const is_down = $icon.hasClass("fa-chevron-up");
 
 			if(is_down){
-				$icon.removeClass("fa-chevron-down").addClass("fa-chevron-up");
+				$icon.removeClass("fa-chevron-up").addClass("fa-chevron-down");
 				$childEl.slideUp();
 			}else{
 
-				$icon.removeClass("fa-chevron-up").addClass("fa-chevron-down");
+				$icon.removeClass("fa-chevron-down").addClass("fa-chevron-up");
 				$childEl.slideDown();
 			}
 		});

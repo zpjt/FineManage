@@ -1,4 +1,5 @@
-$themeColor:#00a0e9;
+
+$themeColor:#6f77fc;
 @mixin redius-shape($radius,$border,$bg:initial){
 	width:$radius;
 	height:$radius;
@@ -24,6 +25,9 @@ $themeColor:#00a0e9;
 		padding:0 15px;
 		box-sizing:border-box;
 		padding-right:60px;
+			background-color: #ffffff;
+	box-shadow: 1px 1px 6px 0px 
+	rgba(0, 0, 0, 0.16);
 	}
 	.search-btn{
 		position: absolute;
@@ -43,7 +47,7 @@ $themeColor:#00a0e9;
 		display:inline-block;
 		width: 22px;
 		height: 22px;
-    vertical-align: middle;
+   // vertical-align: middle;
     transform:rotate(-45deg);
 		&:before{
 			position: absolute;

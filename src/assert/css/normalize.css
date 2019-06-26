@@ -26,6 +26,8 @@ body {
   height: 100%;
   font-size: 14px;
   overflow: hidden;
+  color: rgba(0,0,0,.65);
+
 }
 
 /**

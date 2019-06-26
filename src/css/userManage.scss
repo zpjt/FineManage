@@ -1,6 +1,6 @@
 @import "./common/search.scss";
 
-$themeColor:#00a0e9;
+$themeColor:#6f77fc;
 $themeBlendent1:white;
 $height: 150px;
 $slectColor:#aee6ff;
@@ -18,6 +18,16 @@ $slectColor:#aee6ff;
 	height: 0;
 	border:$borderW solid transparent;
 	border-bottom-color:white;
+}
+/* 阴影 */
+%shadow{
+	background-color: #ffffff;
+	box-shadow: 1px 1px 6px 0px 
+	rgba(0, 0, 0, 0.26);
+	border-radius: 4px;
+}
+.content{
+	@extend %shadow;	
 }
 
 .tab-node{

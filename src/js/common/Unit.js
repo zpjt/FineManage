@@ -59,7 +59,7 @@ class Unit {
 
 		const itemStr = `<div class="tip-item tip1">
 							<p class="tip-close">
-								<span><i class="sicon ${iconArr[+status]}"></i>&nbsp;${iconArrTxt[+status]}</span>
+								<span><i class="sicon ${iconArr[+status]}"></i><span class="tip-type">&nbsp;${iconArrTxt[+status]}</span></span>
 								<span class="j-close"><i class="fa fa-times"></i></span>
 							</p>
 							<p class="tip-txt"><span>${txt}</span></p>

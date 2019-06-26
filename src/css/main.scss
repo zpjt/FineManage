@@ -6,15 +6,29 @@
 	height: 100%;
 	box-sizing: border-box;
 }
+
+$bg:#6f77fc;
+/* 阴影 */
+%shadow{
+	background-color: #ffffff;
+	box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.16);
+//	border-radius: 4px;
+}
+
+#userOption,#role{
+	font-size: 16px;
+}
 .head{
 	height: 60px;
 	width:100%;
 	position: absolute;
 	top:0;
 	left:0;
-	background: white;
+	background:$bg ;
 	line-height:60px;
-    color:black;
+	box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.26);
+	
+    color:white;
     display:flex;
     &>li:nth-child(1){
 		overflow: hidden;
@@ -28,6 +42,7 @@
 		justify-content: flex-end;
 		padding-right:60px;
 		min-width:200px;
+
 		&>li{
 			padding-left:15px;
 		}
@@ -43,6 +58,14 @@
 				}
 			}
 		}
+		.g-cogs{
+			position: relative;
+			&:hover{
+				.m-cogs{
+					display: block;
+				}
+			}
+		}
 		#user{
 			position: relative;
 			&:hover{
@@ -52,24 +75,25 @@
 			}
 		}
 		.active-role{
-			background:#666;
+			color:$bg;
 		}
-		.roleOpt,.userOpt{
+	.m-cogs,.roleOpt,.userOpt{
 			  display: none;
 			  position: absolute;
-		    top: 63px;
+		    top: 60px;
 		    left: 0;
 		    z-index:10;
 		    line-height: 26px;
-		    background: black;
+		    @extend %shadow ;
 		    padding: 8px 0;
 		    border-radius: 8px;
-		    color:white;
+		    color: rgba(0,0,0,.65);
+  
 		    &>li{
 		    	padding: 0 12px;
 		    }
 		    &>li:hover{
-				background:#666;
+					color:$bg;
 		    }
 		    &:before{
 				content:"";
@@ -77,19 +101,26 @@
 				width: 0;
 				height: 0;
 				top:-24px;
-				left:34px;
+				left:44px;
 				border:14px solid transparent;
-				border-bottom-color:black;
+				border-bottom-color:white;
 			}
 
 		
 		}
 
-			.roleOpt{
-				width: 120px;
+		.roleOpt{
+				width: 114px;
+				cursor: pointer;
 		}
 		.userOpt{
 				width: 100px;
+				cursor: pointer;
+		}
+		.m-cogs{
+				width: 106px;
+				text-align: right;
+				cursor: pointer;
 		}
 		#theme{
 			padding-left:24px;
@@ -101,15 +132,8 @@
 				
 			}
 		}
-		#userOption{
-			cursor: pointer;
-			&:hover{
-				color:black;
-			}
-		}
-		.userOpt{
-			cursor: pointer;
-		}
+	
+		
 		
 	}
 }
@@ -135,7 +159,6 @@
 	}
 	.content{
 		flex:1 1 auto;
-		background: url(../img/content_bg.jpg);
 		position: relative;
 	}
 	.router-box{
@@ -151,20 +174,33 @@
 
 }
 
+#menuSearch{
+	border-bottom:1px solid $bg;
+
+	.s-btn{
+		border-radius: 0;
+		&:hover{
+			background: lighten($bg, 10);
+		}
+	}
+}
+
 .slide{
-	$hoverColor:#58B9FF;
-	$active:#E6F7FF;
+	$hoverColor:$bg;
+
+	$active:#dcdcff;
 	$slideH:30px;
-	background: #084171;
+	background:white;
+	@extend %shadow;
 	position: relative;
 	box-sizing:border-box;
 
 	.active{
 		background:$active;
-		color:#1890FF;
+		color:$bg;
 	}
 	.active-par{
-		color:#1890FF;
+		color:$bg;
 		font-weight:bolder;
 	}
 	
@@ -173,7 +209,7 @@
 		position: relative;
 		cursor: pointer;
 		display: flex;
-		align-items: center;
+	//	align-items: center;
 		&:hover{
 			color:$hoverColor;
 			//background:$active;
@@ -198,6 +234,7 @@
 	.slide-foot{
 		cursor: pointer;
 		color:white;
+		background: $bg;
 		height:60px;
 		text-align:center;
 		width: 100%;
@@ -215,56 +252,11 @@
 			position: relative;
 		}
 		#menu{
-			color:#A4BED7;
-			height: calc( 100% - #{$slideH  + 140 });
+			height: calc( 100% - 70px);
     		overflow-y: auto;
 			overflow-x: hidden;
-			padding-bottom:30px;
 		}
-		.change-box{
-			box-shadow:  0 0 10px 0 #807d83de;
-		    border-radius: 6px;
-		    text-shadow: 0 0 2px #585e6c;
-		    font-size: 16px;
-		    font-weight: bold;
-		    overflow: hidden;
-		    transition: 0.6s ease;
-			position: absolute;
-			width:72%;
-			bottom:24px;
-			left:14%;
-			background:#075ea9;
-			height:40px;
-			line-height:40px;
-			text-align:center;
-			color:#a4bed7;
-			cursor: pointer;
-			&:hover{
-				background:#063761;
-				color:#fff;
-			
-			}
- 			
-			.view-name{
-				text-shadow: 0 0 12px #00a0e9;
-				&:before{
-					content:"视图界面";
-				}
-				&:after{
-					content:"管理界面";
-					display:none;
-				}
-			}
-			.g-ripple{
-				position:absolute;
-				width: 100%;
-				height: 100%;
-				top:0;
-				left:0;
-				z-index:10;
-			}
-			
-		}
+		
 		.active-view{
 			.view-name{
 				&:before{

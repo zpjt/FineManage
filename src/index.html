@@ -27,30 +27,36 @@
 						</span>
 				</div>
 				<ul id="menu"></ul>
-				<div class="change-box " id="changBox"><!--fa-share -->
-					<span class="fa fa-television"></span>
-					<span class="view-name"></span>
-					<div class="m-rippleBtn g-ripple"></div>	
-				</div>
+			
 			</div>
-			<div class="content no-head"  id="content">
+			<div class="content "  id="content">
 				<ul class="head" >
 					<li>
 						<p id="theme">
-							<b>医疗决策质量分析</b>
+						<b>fine报表管理</b>
 						</p>
 					</li>
 					<li >
 						<ul class="roleBox" >
-						
-							<li  id="role-opt" style="margin-right: 16px;cursor: pointer;">
-								<span id="role" ><i class="fa fa-exchange ">&nbsp;</i>角色切换</span>
+							<li class="g-cogs">
+								<span class="fa fa-cogs" style="font-size: 16px">&nbsp;设置</span>
+								<ul class="m-cogs" id="cogs">
+									
+									<li key="view" class="active-role"><i class="fa fa-television ">&nbsp;&nbsp;</i>视图界面</li>
+									<li key="cog"><i class="fa fa-cog">&nbsp;&nbsp;</i>管理界面</li>
+								</ul>
+							</li>	
+							<li  id="role-opt">
+								<span id="role" >当前角色状态&nbsp;</span>
 								<ul class="roleOpt" id="roleOpt">
 									
 								</ul>
 							</li>
-
+						<li>
+							<span style="font-size: 16px">设备科</span>
+						</li>
 						<li  id="user">
+							
 							<span id="userOption"><i class="fa fa-user">&nbsp;</i>demo</span>
 							<ul class="userOpt" id="userOpt">
 								<li key="power" id="user_power"><i class="fa fa-power-off">&nbsp;&nbsp;</i>退出系统</li>
@@ -79,6 +85,7 @@
 				resourse:"",
 				roleIdArr:[3101, 3102, 3103],
         roleNameArr:["系统管理员", "部门管理员", "普通用户"],
+        org_names:"设备科"
 		};
     </script>
 	<script src="assert/js/jquery.min.js"></script>

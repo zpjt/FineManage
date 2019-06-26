@@ -1,5 +1,5 @@
-$slectColor:#aee6ff;
-$themeColor:#00a0e9;
+$slectColor:#dcdcff;
+$themeColor:#6f77fc;
 .datagrid-row
 {
     height: 40px;
@@ -34,7 +34,7 @@ $themeColor:#00a0e9;
 }
 .datagrid-row-over,
   {
-  background: #E6F7FF;
+  background: $slectColor;
 }
 .datagrid-header td.datagrid-header-over{
   background: none;
@@ -65,7 +65,6 @@ $themeColor:#00a0e9;
     border:none;
  //   border-top-width: 4px;
     border-radius:0 0 8px  8px ;
-    //background-color: #ebece6;
 }
 .easy-tabBox{
   textarea{
@@ -81,8 +80,6 @@ $themeColor:#00a0e9;
 .datagrid-footer td
 {
     border:none;
-   // border-style: solid;
-  //  border-color: #0092dc;
 }
 
 /*表格操作按钮 */
