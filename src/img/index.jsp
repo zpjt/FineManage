@@ -26,10 +26,6 @@
 <script type="text/javascript" src="commons/js/public.js"></script>
 <script type="text/javascript" src="commons/js/lang.js"></script>
 <script type="text/javascript" src="apps/_bpm.portal/js/client.login.js"></script>
-<!-- fine登录脚本-->
-<script type="text/javascript" src="apps/_bpm.portal/js/fine.client.login.js"></script>
-
-
 <script type="text/javascript">
 $(document).ready(function(){
 	if($.browser.isIE6 || $.browser.isIE7){
@@ -54,41 +50,6 @@ function loadLang(){
 function getRandom(n){
 	return Math.floor(Math.random()*n+1)
 }
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){
-	
-	var loginFine = function(){
-		
-		var name = $("userid").val().trim();
-		var pwd = $("#pwd").val().trim();
-	
-		if(!name || !pwd){
-			return ;
-		};
-		$.post("http://localhost:8080/finemanage/login/corsLogVal",{
-			name:name,
-			pwd:pwd,
-		});
-		
-	}
-	
-	$("#userid, #pwd").on("keyup", function(e){
-		if(e.keyCode == 13){
-			
-			loginFine();
-		}
-	});
-	
-	$("#loginBtn").on("click",function(){
-		
-		loginFine();
-		
-		
-	})
-	
-});
 </script>
 </head>
 <body>

@@ -1594,8 +1594,9 @@
 .datagrid-htable,
 .datagrid-btable,
 .datagrid-ftable {
-  color: #000000;
+  
   border-collapse: separate;
+   color: rgba(0,0,0,.85);
 }
 .datagrid-row-alt {
   background: #fafafa;
@@ -1603,8 +1604,8 @@
 .datagrid-row-over,
 .datagrid-header td.datagrid-header-over {
   background: #e2e2e2;
-  color: #000000;
   cursor: default;
+ 
 }
 .datagrid-row-selected {
   background: #aee6ff;

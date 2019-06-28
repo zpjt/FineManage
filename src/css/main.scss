@@ -15,9 +15,17 @@ $bg:#6f77fc;
 //	border-radius: 4px;
 }
 
-#userOption,#role{
-	font-size: 16px;
+.view-sys{
+	border:1px solid ;
+	padding:6px 10px;
+	
+
 }
+
+.head-tit{
+		font-size: 16px;
+}
+
 .head{
 	height: 60px;
 	width:100%;
@@ -40,11 +48,11 @@ $bg:#6f77fc;
     .roleBox{
 		display:flex;
 		justify-content: flex-end;
-		padding-right:60px;
+		padding-right:20px;
 		min-width:200px;
 
 		&>li{
-			padding-left:15px;
+			padding-left:30px;
 		}
 	
     }
@@ -81,7 +89,7 @@ $bg:#6f77fc;
 			  display: none;
 			  position: absolute;
 		    top: 60px;
-		    left: 0;
+		    
 		    z-index:10;
 		    line-height: 26px;
 		    @extend %shadow ;
@@ -116,11 +124,13 @@ $bg:#6f77fc;
 		.userOpt{
 				width: 100px;
 				cursor: pointer;
+				left: 0;
 		}
 		.m-cogs{
 				width: 106px;
 				text-align: right;
 				cursor: pointer;
+
 		}
 		#theme{
 			padding-left:24px;

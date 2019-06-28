@@ -4,7 +4,7 @@
 	display:flex;
 	justify-content: center;
 	height:100%;
-	background: #EFDBC8 ;
+	background: white ;
 	//background: var(--color-item-bg) ;
 	padding:2rem;
 	box-sizing:border-box;
@@ -27,6 +27,8 @@
     	 		display: flex;
 	    	 	width:$w;
 	    	 	background:white;
+	    	 	background-color: #ffffff;
+	    	 	box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.16);
 				  $color:#45445B;
 					.g-logo{
 						position: absolute;

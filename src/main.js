@@ -29,21 +29,41 @@ class Page{
 		this.menu = new Menu();
 		this.renderMenu(0);
 		this.renderRoleChange();
-	
+		
+	}
+	openFirstFolder(){
+
+		const $menu = this.menu.box;
+
+		const firstFolder = $menu.children("li.par_li_1").eq(0);
+
+		if(firstFolder.length){
+
+			firstFolder.children(".par-menu").show();
+			
+
+			firstFolder.children(".par-item").find(".slide-icon .fa").removeClass("fa-chevron-down").addClass("fa-chevron-up");
+
+		}
+
 	}
 	renderRoleChange(){
 			const {roleIdArr,roleNameArr,role_id} = window.jsp_config;
+
+			let curRoleName = "";
 
 			const str = roleIdArr.map((val,index)=>{
 
 				const active = role_id == val ? "active-role" :"" ;
 
-				return `<li data-id="${val}" class="${active}"><i class="fa fa-user">&nbsp;&nbsp;</i>${roleNameArr[index]}</li>`
+				role_id == val && (curRoleName = roleNameArr[index] )
+
+				return `<li data-id="${val}" class="${active}"><i class="fa fa-user">&nbsp;&nbsp;</i><span class="role_txt">${roleNameArr[index]}</span></li>`
 			})
 			$("#roleOpt").html(str.join(""));
 			const _this = this;
 			
-
+			$("#role").html("当前角色状态:&nbsp;"+curRoleName);
 
 	}
 
@@ -115,6 +135,8 @@ class Page{
 				const id_first = this.findFistMenuID(data);
 				$(`.menuItem[echo-id=${id_first}]`).eq(0).click();
 
+				this.openFirstFolder();
+
 			}else{
 				this.unit.tipToast("菜单为空",2);
 				this.menu.box.html("");
@@ -135,9 +157,19 @@ class Page{
 					const is_key = name.includes(key);
 
 					if(child.length){
-						const result = filterJson(child) ;
+
+						if(!is_key){
+						
+							const result = filterJson(child) ;
 							val.children = result ;
-						return result.length || is_key;
+							return result.length ;
+						
+						}else{
+
+							return true;
+						}
+					
+				
 					}else{
 						return is_key;
 					}
@@ -194,6 +226,12 @@ class Page{
 			$("#menuSearch").nextAll().remove();
 			$("#menu").append(ElArr.join(""));
 
+			_self.menu.box.find(".fa-chevron-down").addClass("fa-chevron-up").removeClass("fa-chevron-down");
+			_self.menu.box.find(".par-menu").show();
+
+
+
+
 		});
 
 		$("#menu").on("click",".search-close",function(){
@@ -204,8 +242,12 @@ class Page{
 				$("#menuSearch").nextAll().remove();
 				$("#menu").append(ElArr.join(""));
 
+				
+
 				$(this).hide();
 				const key = $(this).siblings(".s-inp").val("");
+
+					_self.openFirstFolder();
 
 		});
 		
@@ -222,10 +264,16 @@ class Page{
 
         $this.addClass("active-role").siblings().removeClass("active-role");
 
+        const {roleNameArr} = window.jsp_config;
        window.jsp_config.role_id = id ;
 
 				const status =		Menu.status == "view" ? 0 : 1;
        	_self.renderMenu(status);
+
+       	const curRoleName = $this.find(".role_txt").html();
+
+
+       	$("#role").html("当前角色状态:&nbsp;"+curRoleName);
 
 
 			});
@@ -255,6 +303,8 @@ class Page{
 		 	if($this.hasClass("active-role")){
 		 			return ;
 		 	}
+
+		 	$("#viewSys").html($this.html())
 
 		 	$this.addClass("active-role").siblings().removeClass("active-role");
 		 	if($this.attr("key")=="view"){

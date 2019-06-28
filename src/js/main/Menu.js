@@ -53,9 +53,9 @@ class Menu{
 		return (`
 			<li class="par_li_${lev} par_li" >
 				<div class="menuItem par-item " data-url="${url}" lev="${lev}" echo-id="${id}">
-					${indent}<i class="fa ${icon} fa-lg"></i><span class="icon-wrap"><span class="menu-name">&nbsp;${name}</span><span class="slide-icon"><i class="fa fa-chevron-up  "></i></span></span>
+					${indent}<i class="fa ${icon} fa-lg"></i><span class="icon-wrap"><span class="menu-name">&nbsp;${name}</span><span class="slide-icon"><i class="fa fa-chevron-down"></i></span></span>
 				</div>
-				<ul class="par-menu">${child.join("")}</ul>
+				<ul class="par-menu" style="display:none">${child.join("")}</ul>
 		</li>
 		`);
 
