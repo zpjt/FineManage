@@ -195,6 +195,8 @@ $bg:#6f77fc;
 	}
 }
 
+
+
 .slide{
 	$hoverColor:$bg;
 
@@ -253,6 +255,12 @@ $bg:#6f77fc;
 		align-items: center;
 		&>span:last-child{
 			font-size:22px;
+		}
+		#logo{
+			background: url(../img/lasi2.png) center no-repeat;
+		    flex: 1;
+		    height: 90%;
+		    background-size: contain;
 		}
 	}
 	

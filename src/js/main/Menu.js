@@ -95,9 +95,12 @@ class Menu{
 		const getUrlMethod = this.getIframeUrl();
 
 		/*收缩目录*/
-		this.box.on("click",".slide-icon",function(e){
+		this.box.on("click",".par-item",function(e){
 			e.stopPropagation();
-			const $this = $(this);
+
+
+			const $this = $(this).find(".slide-icon");
+
 			const $icon = $this.children(".fa");
 			const $childEl = $this.parent().parent().siblings(".par-menu");
 			const is_down = $icon.hasClass("fa-chevron-up");
